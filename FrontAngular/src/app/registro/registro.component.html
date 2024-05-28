@@ -4,10 +4,13 @@
         <input type="text" name="user" id="user">
         <label for="name">Name</label>
         <input type="text" name="name" id="name">
+        <label for="surname">Surname</label>
+        <input type="text" name="surname" id="surname">
         <label for="user">Email</label>
         <input type="email" name="email" id="email">
         <label for="intolerances">Intolerances</label>
         <select id="intolerances" name="intolerances" multiple>
+            <option value="dairy">None</option>
             <option value="dairy">Dairy</option>
             <option value="egg">Egg</option>
             <option value="gluten">Gluten</option>
@@ -24,5 +27,5 @@
         <label for="user">Password</label>
         <input type="password" name="pass" id="pass" >
     </form>
-    <button>Submit</button>
+    <button (click)="createUser()">Submit</button>
 </div>
