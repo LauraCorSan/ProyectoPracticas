@@ -20,7 +20,7 @@ public class UserRestController {
 	private IUserService userService;
 	
 	@GetMapping("/clientes")
-	public Class<? extends User> index() {
-		return userService.findAll().get(0).getClass();
+	public List<User> index() {
+		return userService.findAll();
 	}
 }

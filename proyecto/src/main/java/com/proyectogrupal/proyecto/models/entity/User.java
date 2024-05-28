@@ -44,7 +44,7 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	private String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -52,7 +52,7 @@ public class User implements Serializable{
 		this.name = name;
 	}
 
-	private String getSurname() {
+	public String getSurname() {
 		return surname;
 	}
 
@@ -60,7 +60,7 @@ public class User implements Serializable{
 		this.surname = surname;
 	}
 
-	private String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -68,7 +68,7 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	private String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -76,7 +76,7 @@ public class User implements Serializable{
 		this.username = username;
 	}
 
-	private String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
@@ -84,7 +84,7 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	private Date getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -92,7 +92,7 @@ public class User implements Serializable{
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	private Date getRegistrationDate() {
+	public Date getRegistrationDate() {
 		return registrationDate;
 	}
 
@@ -100,4 +100,12 @@ public class User implements Serializable{
 		this.registrationDate = registrationDate;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", username="
+				+ username + ", password=" + password + ", dateOfBirth=" + dateOfBirth + ", registrationDate="
+				+ registrationDate + "]";
+	}
+	
+	
 }
