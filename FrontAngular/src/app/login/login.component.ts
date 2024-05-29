@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,10 @@ import { Component } from '@angular/core';
   styleUrl: './login.component.scss'
 })
 
+@Injectable()
 export class LoginComponent {
+
+constructor(private http: HttpClient) {}
   isUser(){
     const userElement = document.getElementById(
       'user'
@@ -18,7 +22,11 @@ export class LoginComponent {
     const paswordElement = document.getElementById('pass') as HTMLInputElement
     const password = paswordElement.value;
 
-    alert('El usuario o la contraseña no son validos');
+    this.http.get('http://localhost:8080/api/clientes').subscribe(data => {
+      console.log(data);
+    })
+
+    alert('El usuario o la contraseña no son validos')
   }
 }
 

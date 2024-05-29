@@ -9,4 +9,5 @@ import com.proyectogrupal.proyecto.models.entity.User;
 public interface IUserService {
 
 	public List<User> findAll();
+	public User save(User s);
 }

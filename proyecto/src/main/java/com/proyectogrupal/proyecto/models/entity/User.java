@@ -48,7 +48,7 @@ public class User implements Serializable{
 		return name;
 	}
 
-	private void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -56,7 +56,7 @@ public class User implements Serializable{
 		return surname;
 	}
 
-	private void setSurname(String surname) {
+	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
@@ -64,7 +64,7 @@ public class User implements Serializable{
 		return email;
 	}
 
-	private void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -72,7 +72,7 @@ public class User implements Serializable{
 		return username;
 	}
 
-	private void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -80,7 +80,7 @@ public class User implements Serializable{
 		return password;
 	}
 
-	private void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -88,7 +88,7 @@ public class User implements Serializable{
 		return dateOfBirth;
 	}
 
-	private void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -96,7 +96,7 @@ public class User implements Serializable{
 		return registrationDate;
 	}
 
-	private void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 
