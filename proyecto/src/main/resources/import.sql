@@ -1,0 +1,10 @@
+INSERT INTO users (create_at, date_of_bith, email, name, password, surname, username) VALUES ('2024-05-28', '1995-03-15', 'correo2@example.com', 'María', 'clave456', 'Rodríguez', 'maria_r');
+INSERT INTO users (create_at, date_of_bith, email, name, password, surname, username) VALUES ('2024-05-28', '1988-11-10', 'correo3@example.com', 'Pedro', 'miPass789', 'López', 'pedrito');
+INSERT INTO users (create_at, date_of_bith, email, name, password, surname, username) VALUES ('2024-05-28', '1980-09-20', 'correo4@example.com', 'Ana', 'contraseña123', 'García', 'ana_g');
+INSERT INTO users (create_at, date_of_bith, email, name, password, surname, username) VALUES ('2024-05-28', '1992-07-05', 'correo5@example.com', 'Luis', 'pass456', 'Martínez', 'luisito');
+INSERT INTO users (create_at, date_of_bith, email, name, password, surname, username) VALUES ('2024-05-28', '2000-01-01', 'correo1@example.com', 'Juan', 'secreto123', 'Pérez', 'juanito');
+INSERT INTO alergens (name) VALUES ('Frutos secos');
+INSERT INTO alergens (name) VALUES ('Brocoli');
+INSERT INTO alergens (name) VALUES ('Marisco');
+INSERT INTO alergens (name) VALUES ('Pescado');
+INSERT INTO alergens (name) VALUES ('Nueces');
