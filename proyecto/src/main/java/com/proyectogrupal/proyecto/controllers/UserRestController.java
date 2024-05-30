@@ -35,11 +35,33 @@ public class UserRestController {
 	@PostMapping("/create")
 	public List<User> createUser(@RequestBody User user) {
 		userService.save(user);
-		return userService.findAll();
+		return userService.findByUsername(user.getUsername());
 	}
 	
-	@GetMapping("/user")
-	public void isRegistered() {
+	@PostMapping("/login")
+	public boolean isRegistered(@RequestBody RequestUsername request) {
+		if(!getUser(request).isEmpty()) {
+			User u = getUser(request).get(0);
+			return u.getPassword().equals(request.getPassword());
+		}
+		return false;
+	}
+	
+	@PostMapping("/user")
+	public List<User> getUser(@RequestBody RequestUsername request) {
+		return userService.findByUsername(request.getUsername());
+	}
+	
+	static class RequestUsername{
+		String username;
+		String password;
 		
+		public String getUsername() {
+			return this.username;
+		}
+		
+		public String getPassword() {
+			return this.password;
+		}
 	}
 }

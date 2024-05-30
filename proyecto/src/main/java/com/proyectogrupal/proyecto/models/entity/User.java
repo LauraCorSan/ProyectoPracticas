@@ -97,7 +97,7 @@ public class User implements Serializable{
 	}
 
 	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
+		this.registrationDate = new Date();
 	}
 
 	@Override

@@ -21,5 +21,9 @@ public class UserService implements IUserService {
 	public User save(User s) {
 		return userDao.save(s);
 	}
+	@Override
+	public List<User> findByUsername(String username) {
+		return userDao.findByUsername(username);
+	}
 	
 }
