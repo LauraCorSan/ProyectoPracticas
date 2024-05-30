@@ -33,9 +33,13 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/create")
-	public List<User> createUser(@RequestBody User user) {
-		userService.save(user);
-		return userService.findByUsername(user.getUsername());
+	public boolean createUser(@RequestBody User user) {
+		RequestUsername ru = new RequestUsername();
+		ru.username = user.getUsername();
+		if(getUser(ru).isEmpty()) {
+			userService.save(user);
+			return true;
+		}else return false;
 	}
 	
 	@PostMapping("/login")
