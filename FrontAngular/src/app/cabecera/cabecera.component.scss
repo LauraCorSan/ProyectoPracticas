@@ -1,0 +1,49 @@
+html{
+    height: 100%;
+    background-color: orange;
+}
+#cabecera {
+    display: flex;
+    position: fixed;
+    top: 0; /* Ajuste de la posición vertical */
+    width: 100%;
+    z-index: 1000;
+    background-color: transparent;
+    box-sizing: border-box;
+    padding: 5px;
+    height: 70px;
+    justify-content: center;
+}
+
+#dock {
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    width: 55%;
+    box-shadow: 3px 0px 10px 1px rgba(0, 0, 0, 0.305);
+    padding: 10px;
+}
+
+#dock > div {
+    margin: auto;
+    text-align: center;
+    display: inline;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+#dock > div > a {
+    display: block;
+}
+
+#dock > div:hover {
+    cursor: pointer;
+    background-color: rgba(181, 228, 255, 0.491);
+    border-radius: 15px;
+}
+
+#dock > div img {
+    width: 30px;
+    height: 30px;
+    margin: 5px 40px auto 40px;
+}
