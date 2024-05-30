@@ -1,0 +1,58 @@
+.form-container{
+    margin-left: 30%;
+    width: 40%;
+    height: 50%;
+    background-color:rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-around;
+    border-radius: 1rem;
+    border: 0.1rem solid orange;
+    box-shadow: 0 0 1rem orange;
+    color: white;
+}
+
+.form-container input{
+    color: orange;
+    margin-bottom: 1em;
+}
+.sign-in-form{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 1em;
+}
+
+button{
+    width: 100px;
+    height: 20%;
+    border-radius: 1rem;
+    border: none;
+    color: orange;
+    margin-bottom: 1em;
+}
+
+button:hover{
+    animation-name: changeColor;
+    animation-duration:0.5s;
+}
+
+.form-title {
+    color: orange;
+    font-style: bolder;
+}
+
+select{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 1em;
+}
+
+@keyframes changeColor {
+    to{
+        background-color:rgb(51, 51, 51);
+        border: 1px solid orange;
+    }
+}
