@@ -2,39 +2,53 @@ package com.proyectogrupal.proyecto.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name="users")
-public class User implements Serializable{
+@Table(name = "users")
+public class User implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String surname;
 	private String email;
 	private String username;
 	private String password;
-	@Column(name="date_of_bith")
+	@Column(name = "date_of_bith")
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
-	@Column(name="create_at")
+	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date registrationDate;
+ 
+	@ManyToMany
+	@JoinTable(
+			name = "User_Alergen",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "alergen_id")
+	)
+	private Set<Alergen> alergens = new HashSet<Alergen>();
+
 	
 	private Long getId() {
 		return id;
@@ -99,6 +113,13 @@ public class User implements Serializable{
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = new Date();
 	}
+	public Set<Alergen> getAlergens() {
+		return alergens;
+	}
+
+	public void setAlergens(Set<Alergen> alergens) {
+		this.alergens = alergens;
+	}
 
 	@Override
 	public String toString() {
@@ -106,6 +127,5 @@ public class User implements Serializable{
 				+ username + ", password=" + password + ", dateOfBirth=" + dateOfBirth + ", registrationDate="
 				+ registrationDate + "]";
 	}
-	
-	
+
 }
