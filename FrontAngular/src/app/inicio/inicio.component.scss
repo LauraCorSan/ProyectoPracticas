@@ -1,8 +1,9 @@
 #titulo{
     position: relative;
     top: 90px;
-    margin-left: 150px;
+    margin-left: 40px;
     text-align: center;
+    color: rgb(212, 138, 0);
 }
 
 h1{
@@ -13,11 +14,12 @@ h1{
     background-color: white;
     position: relative;
     top: 90px;
-    left: 23%;
+    left: 18%;
     height: 60%;
     width: 65%;
     border-radius: 15px;
-    box-shadow: 3px 0px 10px 1px rgba(0, 0, 0, 0.305);
+    box-shadow: 3px 0px 10px 1px orange;
+    border: orange;
 }
 
 .receta{

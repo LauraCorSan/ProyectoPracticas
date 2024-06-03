@@ -9,5 +9,17 @@ import { CabeceraComponent } from '../cabecera/cabecera.component';
   styleUrl: './buscador.component.scss'
 })
 export class BuscadorComponent {
+  validateFields(): boolean {
+    return true;
+  }
+}
 
+function isFilled(field: HTMLInputElement): boolean {
+  const value = field.value;
+
+  if (value == null || value == undefined || value.length == 0 || value.trim().length == 0) {
+    alert('The field \"' + field.name + '\" is empty');
+    return false;
+  }
+  return true;
 }

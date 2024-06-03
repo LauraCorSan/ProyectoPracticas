@@ -1,9 +1,3 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstantRecipes - Bienvenido</title>
-</head>
-<body>
   <div class="container">
       <div class="text-content">
           <h1>Bienvenido a InstantRecipes</h1>
@@ -23,8 +17,7 @@
           </p>
 
           <div class="button-container">
-              <a (click)="navigateToLogin()"  id = "inicioSesion" class="button">Inicia Sesión</a>
-              <a (click)="navigateToRegister()"  id = "registro" class="button button-secondary">Regístrate</a>
+              <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" id = "inicioSesion" class="button">Regístrate</a>
               <span class="small-text">¿No tienes cuenta?</span>
           </div>
       </div>
@@ -32,4 +25,4 @@
           <img src="https://d1ralsognjng37.cloudfront.net/367f542c-7ad5-4099-bd50-5e638a9c1879.jpeg" alt="Deliciosa comida">
       </div>
   </div>
-</body>
+  <router-outlet></router-outlet>
