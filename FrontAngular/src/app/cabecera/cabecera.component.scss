@@ -5,7 +5,8 @@ html{
 #cabecera {
     display: flex;
     position: fixed;
-    top: 0; /* Ajuste de la posición vertical */
+    top: 0; 
+    left: 0;
     width: 100%;
     z-index: 1000;
     background-color: transparent;
@@ -20,8 +21,9 @@ html{
     border-radius: 20px;
     display: flex;
     width: 55%;
-    box-shadow: 3px 0px 10px 1px rgba(0, 0, 0, 0.305);
+    box-shadow: 3px 0px 10px 1px orange;
     padding: 10px;
+    border: orange;
 }
 
 #dock > div {
@@ -38,7 +40,7 @@ html{
 
 #dock > div:hover {
     cursor: pointer;
-    background-color: rgba(181, 228, 255, 0.491);
+    background-color: rgb(255, 235, 197);
     border-radius: 15px;
 }
 
