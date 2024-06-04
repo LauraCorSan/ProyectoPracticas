@@ -6,11 +6,12 @@ import { RouterLinkActive } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../user.model';
 import { InicioComponent } from '../inicio/inicio.component';
+import { CabeceraComponent } from '../cabecera/cabecera.component';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive, InicioComponent],
+  imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive, InicioComponent, CabeceraComponent],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
