@@ -9,22 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectogrupal.proyecto.models.dao.IAlergenDao;
-import com.proyectogrupal.proyecto.models.entity.Alergen;
-import com.proyectogrupal.proyecto.models.services.AlergenService;
-import com.proyectogrupal.proyecto.models.services.IAlergenService;
-import com.proyectogrupal.proyecto.models.services.UserService;
+import com.proyectogrupal.proyecto.models.entity.Cuisine;
+import com.proyectogrupal.proyecto.models.services.CuisineService;
 @CrossOrigin(origins = {"http://localhost:4200"} , methods = {RequestMethod.POST,RequestMethod.GET})
 @RestController
-@RequestMapping("/aler")
-public class AlergenRestController {
+@RequestMapping("/cuisine")
+public class CuisinesRestController {
 	@Autowired
-	private IAlergenService alergenService;
-	@Autowired
-	private IAlergenDao alerDao;
+	CuisineService sc;
 	
-	@GetMapping("/alergenos")
-	public List<Alergen> index(){
-		return alergenService.findAll();
+	@GetMapping("/getAll")
+	public List<Cuisine> index(){
+		return sc.findAll();
 	}
 }

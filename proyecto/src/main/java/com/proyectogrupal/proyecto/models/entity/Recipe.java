@@ -13,35 +13,34 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "alergens")
-public class Alergen implements Serializable {
+@Table(name = "recipes")
+public class Recipe implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
+	Long id;
+	Double recipeId;
 	
-	@ManyToMany(mappedBy = "alergens", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "recipes", fetch = FetchType.LAZY)
 	private Set<User> users = new HashSet<User>();
-	
-	
-	public long getId() {
+
+	private Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	private void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Double getRecipeId() {
+		return recipeId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRecipeId(Double recipeId) {
+		this.recipeId = recipeId;
 	}
 
 }

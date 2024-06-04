@@ -2,6 +2,7 @@ package com.proyectogrupal.proyecto.controllers;
 
 import java.io.Console;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.text.html.FormSubmitEvent.MethodType;
 
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectogrupal.proyecto.models.dao.IUserDao;
+import com.proyectogrupal.proyecto.models.entity.Alergen;
 import com.proyectogrupal.proyecto.models.entity.User;
 import com.proyectogrupal.proyecto.models.services.IUserService;
+import com.proyectogrupal.proyecto.models.services.UserRequest;
 
-@CrossOrigin(origins = {"http://localhost:4200"} , methods = RequestMethod.POST)
+import jakarta.servlet.http.Cookie;
+
+@CrossOrigin(origins = {"http://localhost:4200"} , methods = {RequestMethod.POST,RequestMethod.GET})
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
@@ -36,36 +41,35 @@ public class UserRestController {
 	public boolean createUser(@RequestBody User user) {
 		RequestUsername ru = new RequestUsername();
 		ru.username = user.getUsername();
-		if(getUser(ru).isEmpty()) {
-			userService.save(user);
+		if(getUser(ru) == null) {
+			userService.createUserWithCourse(user);
 			return true;
 		}else return false;
 	}
 	
 	@PostMapping("/login")
-	public boolean isRegistered(@RequestBody RequestUsername request) {
-		if(!getUser(request).isEmpty()) {
-			User u = getUser(request).get(0);
+	public boolean isValidCredentials(@RequestBody RequestUsername request) {
+		if((getUser(request) != null)) {
+			User u = getUser(request);
 			return u.getPassword().equals(request.getPassword());
 		}
 		return false;
 	}
 	
+	@PostMapping("/alergens")
+	public Set<Alergen> getAler(@RequestBody RequestUsername request){
+		return userService.findByUsername(request.getUsername()).getAlergens();
+	}
+	
 	@PostMapping("/user")
-	public List<User> getUser(@RequestBody RequestUsername request) {
+	public User getUser(@RequestBody RequestUsername request) {
 		return userService.findByUsername(request.getUsername());
 	}
 	
-	static class RequestUsername{
-		String username;
-		String password;
-		
-		public String getUsername() {
-			return this.username;
-		}
-		
-		public String getPassword() {
-			return this.password;
-		}
+	@PostMapping("/update")
+	public User updateUser(@RequestBody UserRequest ur) {
+		return userService.editUser(ur);
 	}
+	
+	
 }
