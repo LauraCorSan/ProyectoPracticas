@@ -1,7 +1,6 @@
-import { Component, Injectable } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { RouterLinkActive } from '@angular/router';
+import { Component} from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
 import { InicioComponent } from '../inicio/inicio.component';
@@ -19,15 +18,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class RegistroComponent {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registroForm = this.fb.group({
-      NombreUsuario: ['', [Validators.required, this.noWhitespaceValidator]],
-      Nombre: ['', [Validators.required, this.noWhitespaceValidator]],
-      Apellido: ['', [Validators.required, this.noWhitespaceValidator]],
-      CorreoElectronico: ['', [Validators.required, Validators.email]],
-      Contraseña: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$/)]],
-      FechaNacimiento: ['', [Validators.required, this.dateNotInFutureValidator]],
-      Intolerancias: [[], Validators.required]
+      Name: ['', [Validators.required, this.noWhitespaceValidator]],
+      Surname: ['', [Validators.required, this.noWhitespaceValidator]],
+      Email: ['', [Validators.required, Validators.email]],
+      Username: ['', [Validators.required, this.noWhitespaceValidator]],
+      Password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$/)]],
+      BirthDate: ['', [Validators.required, this.dateNotInFutureValidator]],
+      Intolerances: [[], Validators.required]//TODO
     });
   }
 
@@ -39,10 +38,47 @@ export class RegistroComponent {
     const formValues = this.registroForm.value;
     console.log('Form Values:', formValues);
 
-    /*this.http.get('http://localhost:8080/api/clientes').subscribe(data => {
-      console.log(data);
-    })*/
-    // TODO envío del formulario a backend
+    const nameElement = document.getElementById('name') as HTMLInputElement;
+    const name = nameElement.value;
+
+    const surnameElement = document.getElementById('surname') as HTMLInputElement;
+    const surname = surnameElement.value;
+
+    const emailElement = document.getElementById('email') as HTMLInputElement;
+    const email = emailElement.value;
+
+    const usernameElement = document.getElementById('username') as HTMLInputElement;
+    const username = usernameElement.value;
+
+    const paswordElement = document.getElementById('password') as HTMLInputElement;
+    const password = paswordElement.value;
+
+    const dateElement = document.getElementById('birthdate') as HTMLInputElement;
+    const birthDate = dateElement.value;
+
+    const resgitrationDate = new Date();
+
+    const intolerancesElement = document.getElementById('intolerances') as HTMLSelectElement;
+    const intolerances = this.parseIntolerances(intolerancesElement);
+
+    const user = {
+      "name": name,
+      "surname": surname,
+      "email": email,
+      "username": username,
+      "password": password,
+      "dateOfBirth": birthDate,
+      "registrationDate": resgitrationDate,
+      "alergens": intolerances,
+    }
+
+    this.http.post('http://localhost:8080/api/create', user ).subscribe(data => {
+      if(data){
+        this.router.navigate(['/inicio']);
+      } else {
+        alert('No se ha podido registrar el usuario');
+      }
+    });
   }
 
   private showErrors() {
@@ -80,7 +116,14 @@ export class RegistroComponent {
   private dateNotInFutureValidator(control: FormControl) {
     const currentDate = new Date();
     const selectedDate = new Date(control.value);
-    const isValid = selectedDate <= currentDate;
+    const isValid = selectedDate < currentDate;
     return isValid ? null : { dateNotInFuture: true };
+  }
+
+  private parseIntolerances(listIntolerances: HTMLSelectElement) {
+    //TODO pasar a array de intolerances y si es none pasar array vacio
+    //[{"name": "huevo"}, {"name": "pollo"}]
+    /*const arrayIntolerances = listIntolerances.selectedOptions;
+    return (arrayIntolerances[0].textContent=="none") ? " ": arrayIntolerances;*/
   }
 }

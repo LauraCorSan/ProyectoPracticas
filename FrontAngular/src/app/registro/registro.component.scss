@@ -1,4 +1,3 @@
-
 .outer-container {
   display: flex;
   justify-content: center;
@@ -42,8 +41,8 @@
 
 .text-content {
   position: absolute;
-  top: 50px;
-  z-index: 1;
+  top: 20px; /* Ajusta esta propiedad según sea necesario */
+  z-index: 2; /* Asegúrate de que esté por encima del contenedor de la imagen */
   color: rgb(212, 138, 0);
 }
 
@@ -58,7 +57,7 @@
   width: 100%;
   position: relative;
   z-index: 1;
-  padding-top: 20px;
+  padding-top: 80px; /* Ajusta esta propiedad para dar espacio al texto superior */
 }
 
 .sign-in-form input,
@@ -136,7 +135,6 @@ select {
 @media (max-width: 768px) {
   .form-container {
     padding: 20px;
-    padding-top: 100px;
   }
 
   .image-container {
@@ -148,14 +146,6 @@ select {
   }
 
   .sign-in-form {
-    padding-top: 10px;
-  }
-
-  .button-container {
-    justify-content: center;
-  }
-
-  .sign-in-form button {
-    width: 100%;
+    padding-top: 90px;
   }
 }
