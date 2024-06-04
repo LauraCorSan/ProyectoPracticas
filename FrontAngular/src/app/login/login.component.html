@@ -1,7 +1,18 @@
-<div class="form-container">
+<div class="outer-container">
+  <div class="form-container">
+    <div class="image-container">
+      <img src="https://astelus.com/wp-content/viajes/preparar-Enchilada.jpg" alt="Background Image">
+    </div>
+    <div class="text-content">
+      <h1>Iniciar Sesión</h1>
+    </div>
     <form class="login-form">
-        <input type="text" name="user" id="user" placeholder="Username">
-        <input type="password" name="pass" id="pass" placeholder="Password">
+      <input type="text" name="user" id="user" placeholder="Nombre de usuario">
+      <input type="password" name="pass" id="pass" placeholder="Contraseña">
+      <div class="button-container">
+        <button type="submit">Iniciar</button>
+        <button routerLink="/bienvenida" routerLinkActive="active" type="reset" class="reset-button">Volver</button>
+      </div>
     </form>
-    <button (click)="isUser()">Submit</button>
+  </div>
 </div>

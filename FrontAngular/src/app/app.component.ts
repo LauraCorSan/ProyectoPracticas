@@ -5,11 +5,12 @@ import { InicioComponent } from './inicio/inicio.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet , BienvenidaComponent, LoginComponent, UserComponent, CabeceraComponent, InicioComponent],
+  imports: [RouterOutlet , BienvenidaComponent, LoginComponent, UserComponent, CabeceraComponent, InicioComponent, BuscadorComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
