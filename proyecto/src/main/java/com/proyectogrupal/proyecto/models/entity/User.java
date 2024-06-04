@@ -40,16 +40,15 @@ public class User implements Serializable {
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date registrationDate;
- 
-	@ManyToMany
-	@JoinTable(
-			name = "User_Alergen",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "alergen_id")
-	)
-	private Set<Alergen> alergens = new HashSet<Alergen>();
 
-	
+	@ManyToMany
+	@JoinTable(name = "User_Alergen", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "alergen_id"))
+	private Set<Alergen> alergens = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(name = "recipes_made", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+	private Set<Recipe> recipes = new HashSet<>();
+
 	private Long getId() {
 		return id;
 	}
@@ -113,6 +112,7 @@ public class User implements Serializable {
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = new Date();
 	}
+
 	public Set<Alergen> getAlergens() {
 		return alergens;
 	}

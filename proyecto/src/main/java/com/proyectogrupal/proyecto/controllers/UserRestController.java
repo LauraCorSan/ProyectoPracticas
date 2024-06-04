@@ -20,8 +20,11 @@ import com.proyectogrupal.proyecto.models.dao.IUserDao;
 import com.proyectogrupal.proyecto.models.entity.Alergen;
 import com.proyectogrupal.proyecto.models.entity.User;
 import com.proyectogrupal.proyecto.models.services.IUserService;
+import com.proyectogrupal.proyecto.models.services.UserRequest;
 
-@CrossOrigin(origins = {"http://localhost:4200"} , methods = RequestMethod.POST)
+import jakarta.servlet.http.Cookie;
+
+@CrossOrigin(origins = {"http://localhost:4200"} , methods = {RequestMethod.POST,RequestMethod.GET})
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
@@ -53,14 +56,19 @@ public class UserRestController {
 		return false;
 	}
 	
-	@GetMapping("/alergens")
-	public Set<Alergen> getAler(){
-		return userService.findByUsername("Pepe").getAlergens();
+	@PostMapping("/alergens")
+	public Set<Alergen> getAler(@RequestBody RequestUsername request){
+		return userService.findByUsername(request.getUsername()).getAlergens();
 	}
 	
 	@PostMapping("/user")
 	public User getUser(@RequestBody RequestUsername request) {
 		return userService.findByUsername(request.getUsername());
+	}
+	
+	@PostMapping("/update")
+	public User updateUser(@RequestBody UserRequest ur) {
+		return userService.editUser(ur);
 	}
 	
 	
