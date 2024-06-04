@@ -110,7 +110,7 @@ class ProyectoApplicationTests {
 			assertTrue(call.get(i).containsKey("image"));
 			assertTrue(call.get(i).containsKey("imageType"));
 		}
-		assertEquals(crp.index().size(), 25);
+		assertEquals(crp.index().size(),27);
 		assertEquals(arp.index().size(), 12);
 	}
 }
