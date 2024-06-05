@@ -1,26 +1,28 @@
 <div id="contenedorBusqueda">
     <div id="filtros">
-        <h1>Filters</h1>
-        <label for="name">Recipe name</label><br>
-        <input type="text" id="name" name="name"><br>
-        
-        <label for="type">Type</label><br>
-        <!-- Cargar la infomración de los tipos de cocina que devuelve el back -->
-        <select id="type" name="type">
-            <option id="">African</option>
-        </select><br>
-        
-        <label for="maxCalories">Maximum calories</label><br>
-        <input type="number" name="maxCalories" id="maxCalories"><br>
-        
-        <label for="minCalories">Minimum calories</label><br>
-        <input type="number" id="minCalories" name="minCalories"><br>
-        
-        <label for="ingredients">Ingredients</label><br>
-        <textarea name="ingredients" id="ingredients"></textarea><br>
-        <button (click)="validateFields()" class="button">Search</button>
-        <!-- <a routerLink="" routerLinkActive="active" ariaCurrentWhenActive="page" id="buscar" class="button">Buscar</a> -->
+      <h1>Filters</h1>
+      <label for="name">Recipe name</label><br>
+      <input type="text" id="name" name="name" [(ngModel)]="recipeName"><br>
+      
+      <label for="type">Type</label><br>
+      <select id="type" name="type" [(ngModel)]="recipeType">
+        <option value="African">African</option>
+     
+        <!-- Añadir más opciones según sea necesario -->
+      </select><br>
+      
+      <label for="maxCalories">Maximum calories</label><br>
+      <input type="number" name="maxCalories" id="maxCalories" [(ngModel)]="maxCalories"><br>
+      
+      <label for="minCalories">Minimum calories</label><br>
+      <input type="number" id="minCalories" name="minCalories" [(ngModel)]="minCalories"><br>
+      
+      <label for="ingredients">Ingredients</label><br>
+      <textarea name="ingredients" id="ingredients" [(ngModel)]="ingredients"></textarea><br>
+      
+      <button (click)="validateFields()" class="button">Search</button>
     </div>
     <div id="resultados">
     </div>
-</div>
+  </div>
+  

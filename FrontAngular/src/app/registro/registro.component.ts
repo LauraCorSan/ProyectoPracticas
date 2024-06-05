@@ -1,21 +1,21 @@
-import { Component, Injectable } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
-import { InicioComponent } from '../inicio/inicio.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive, InicioComponent, BienvenidaComponent],
+  imports: [
+    ReactiveFormsModule, 
+    RouterOutlet, 
+    RouterLink, 
+    RouterLinkActive
+  ],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+  styleUrls: ['./registro.component.scss']
 })
-
 export class RegistroComponent {
   registroForm: FormGroup;
 
@@ -39,10 +39,7 @@ export class RegistroComponent {
     const formValues = this.registroForm.value;
     console.log('Form Values:', formValues);
 
-    /*this.http.get('http://localhost:8080/api/clientes').subscribe(data => {
-      console.log(data);
-    })*/
-    // TODO envío del formulario a backend
+    // Enviar los datos al backend
   }
 
   private showErrors() {
@@ -63,6 +60,9 @@ export class RegistroComponent {
               break;
             } else if (errors['dateNotInFuture']) {
               alert('La fecha de nacimiento no puede ser en el futuro');
+              break;
+            } else if (errors['whitespace']) {
+              alert(`El campo "${field}" no puede contener solo espacios`);
               break;
             }
           }

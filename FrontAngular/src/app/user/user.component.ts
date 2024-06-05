@@ -16,6 +16,7 @@ import { CabeceraComponent } from '../cabecera/cabecera.component';
   styleUrls: ['./user.component.scss'],
 })
 
+
 export class UserComponent {
 
   constructor(private http: HttpClient) {}

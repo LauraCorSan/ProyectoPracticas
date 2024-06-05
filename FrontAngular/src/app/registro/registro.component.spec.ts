@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
-import { RegistroComponent } from './registro.component';
+import { RegistroComponent } from './registro.component'; // Importar el componente a ser probado
+import { ActivatedRoute } from '@angular/router';
 
 describe('RegistroComponent', () => {
   let component: RegistroComponent;
@@ -10,8 +11,14 @@ describe('RegistroComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [RegistroComponent]
+      imports: [ReactiveFormsModule, FormsModule, HttpClientTestingModule], // Asegúrate de importar ReactiveFormsModule y FormsModule aquí
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => 'someValue' } } } // Mocking ActivatedRoute
+        }
+      ],
+      declarations: [] // No es necesario declarar RegistroComponent aquí
     }).compileComponents();
   });
 
@@ -25,6 +32,7 @@ describe('RegistroComponent', () => {
     expect(component).toBeTruthy();
   });
 
+
   it('should have a valid form when all fields are filled correctly', () => {
     component.registroForm.setValue({
       NombreUsuario: 'usuario123',
@@ -33,8 +41,9 @@ describe('RegistroComponent', () => {
       CorreoElectronico: 'correo@example.com',
       Contraseña: 'Password1!',
       FechaNacimiento: '2000-01-01',
-      Intolerancias: []
+      Intolerancias: ['none']
     });
+    
     expect(component.registroForm.valid).toBeTrue();
   });
 
@@ -76,7 +85,7 @@ describe('RegistroComponent', () => {
   it('should call onSubmit method', () => {
     spyOn(component, 'onSubmit');
     const form = fixture.debugElement.query(By.css('form'));
-    form.triggerEventHandler('ngSubmit', null);
+    form.triggerEventHandler('submit', null);
     expect(component.onSubmit).toHaveBeenCalled();
   });
 
@@ -89,6 +98,11 @@ describe('RegistroComponent', () => {
 
   it('should show an alert for invalid email', () => {
     spyOn(window, 'alert');
+    component.registroForm.controls['NombreUsuario'].setValue('usuario123');
+    component.registroForm.controls['Nombre'].setValue('Nombre');
+    component.registroForm.controls['Apellido'].setValue('Apellido');
+    component.registroForm.controls['Contraseña'].setValue('Password1!');
+    component.registroForm.controls['FechaNacimiento'].setValue('2000-01-01'); 
     component.registroForm.controls['CorreoElectronico'].setValue('invalid-email');
     component.onSubmit();
     expect(window.alert).toHaveBeenCalledWith('Use una dirección de correo electrónico válida');
@@ -96,8 +110,12 @@ describe('RegistroComponent', () => {
 
   it('should show an alert for invalid password pattern', () => {
     spyOn(window, 'alert');
+    component.registroForm.controls['NombreUsuario'].setValue('usuario123');
+    component.registroForm.controls['Nombre'].setValue('Nombre');
+    component.registroForm.controls['Apellido'].setValue('Apellido');
+    component.registroForm.controls['CorreoElectronico'].setValue('correo@example.com');
     component.registroForm.controls['Contraseña'].setValue('password');
-    component.onSubmit();
+    component.registroForm.controls['FechaNacimiento'].setValue('2000-01-01');    component.onSubmit();
     expect(window.alert).toHaveBeenCalledWith('La contraseña debe contener 8-15 caracteres y al menos una letra mayúscula, una minúscula, un número y un carácter especial ($@$!%*?&) sin espacios');
   });
 
@@ -105,6 +123,11 @@ describe('RegistroComponent', () => {
     spyOn(window, 'alert');
     const futureDate = new Date();
     futureDate.setDate(futureDate.getDate() + 1); // Tomorrow's date
+    component.registroForm.controls['NombreUsuario'].setValue('usuario123');
+    component.registroForm.controls['Nombre'].setValue('Nombre');
+    component.registroForm.controls['Apellido'].setValue('Apellido');
+    component.registroForm.controls['CorreoElectronico'].setValue('correo@example.com');
+    component.registroForm.controls['Contraseña'].setValue('Password1!');
     component.registroForm.controls['FechaNacimiento'].setValue(futureDate.toISOString().split('T')[0]);
     component.onSubmit();
     expect(window.alert).toHaveBeenCalledWith('La fecha de nacimiento no puede ser en el futuro');
