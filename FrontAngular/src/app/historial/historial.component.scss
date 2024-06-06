@@ -1,32 +1,21 @@
-#titulo {
-    position: relative;
-    top: 90px;
-    text-align: center;
-    color: rgb(212, 138, 0);
-}
-
-h1 {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
 #contenido {
     background-color: white;
     position: relative;
     height: 100%;
     width: 98.5%;
     border-radius: 15px;
-    overflow: auto;
-    box-sizing: border-box; 
+    overflow-y:auto; 
     padding: 1em;
+    box-sizing: border-box; 
 }
 
 #espacio {
     background-color: white;
     position: relative;
     top: 90px;
-    left: 15%;
-    height: 65%;
-    width: 70%;
+    left: 25%;
+    height: 80%;
+    width: 50%;
     border-radius: 15px;
     box-shadow: 3px 0px 10px 1px orange;
     border: orange;
@@ -35,21 +24,16 @@ h1 {
 .receta {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     height: auto;
-    width: 65%;
+    width: 100%;
     padding-bottom: 1em;
-    margin-left: 17.5%;
     justify-content: center;
 }
 
-#contenido h1 {
-    margin-top: 10px;
-    text-align: center;
-}
-
 .receta img {
-    margin-left: 25%;
+    margin-left: 0;
     width: 50%;
     border-radius: 10px;
+    margin-left: 27%;
 }
 
 .receta a {
@@ -57,38 +41,17 @@ h1 {
     text-align: center;
     text-decoration: none;
     padding: 0.5em;
-    margin-top: 1em;
-    margin-left: 13%;
+    margin: 1em;
+    margin-left: 15%;
     width: 70%;
 }
+
 
 .receta a:hover {
     cursor: pointer;
     color: rgb(0, 0, 0);
     background-color: rgba(232, 225, 203, 0.491);
     border-radius: 15px;
-}
-
-#botones {
-    text-align: center;
-}
-
-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: orange;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    width: 45%;
-    margin: 1em 1em 1em 0;
-}
-
-button:hover {
-    padding: 8px 18px;
 }
 
 #contenido::-webkit-scrollbar {
