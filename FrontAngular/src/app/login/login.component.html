@@ -4,14 +4,14 @@
       <img src="https://astelus.com/wp-content/viajes/preparar-Enchilada.jpg" alt="Background Image">
     </div>
     <div class="text-content">
-      <h1>Iniciar Sesión</h1>
+      <h1>Login</h1>
     </div>
-    <form class="login-form">
-      <input type="text" name="user" id="user" placeholder="Nombre de usuario">
-      <input type="password" name="pass" id="pass" placeholder="Contraseña">
+    <form [formGroup]="loginForm" class="login-form"  (ngSubmit)="onSubmit()">
+      <input type="text" name="username" id="username" placeholder="Username">
+      <input type="password" name="password" id="password" placeholder="Password">
       <div class="button-container">
-        <button type="submit">Iniciar</button>
-        <button routerLink="/bienvenida" routerLinkActive="active" type="reset" class="reset-button">Volver</button>
+        <button type="submit" >Login</button>
+        <button routerLink="/bienvenida" routerLinkActive="active" type="reset" class="reset-button">Return</button>
       </div>
     </form>
   </div>

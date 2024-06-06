@@ -5,30 +5,41 @@
       <img src="https://i.pinimg.com/originals/97/08/19/97081939e675bd9ded43caaa941fc4a5.jpg" alt="Profile Image">
     </div>
     <div class="text-content">
-      <h1>Perfil Personal</h1>
+      <div class="profile-header">
+        <h1>User Profile</h1>
+        <div class="button-images">
+          <button routerLink="/historial" routerLinkActive="active" class="image-button">
+            <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-basic-1-line-cut/468/34-order_history-1024.png" alt="Image 1">
+          </button>
+          <button routerLink="/favoritos" routerLinkActive="active" class="image-button">
+            <img src="https://cdn-icons-png.flaticon.com/512/2919/2919643.png" alt="Image 2">
+          </button>
+        </div>
+      </div>
       <form class="edit-form">
         <div class="form-group">
-          <label for="Nombre">Nombre:</label>
+          <label for="Nombre">Name:</label>
           <input type="text" id="Nombre" [(ngModel)]="user.name" name="name">
         </div>
         <div class="form-group">
-          <label for="Apellido">Apellido:</label>
+          <label for="Apellido">Surname:</label>
           <input type="text" id="Apellido" [(ngModel)]="user.surname" name="surname">
         </div>
         <div class="form-group">
-          <label for="Email">Correo electrónico:</label>
+          <label for="Email">Email:</label>
           <input type="email" id="Email" [(ngModel)]="user.email" name="email">
         </div>
         <div class="form-group">
-          <label for="Intolerancias">Intolerancias:</label>
+          <label for="Intolerancias">Allergies/Intolerances:</label>
           <textarea id="Intolerancias" [(ngModel)]="user.intolerances" name="intolerances"></textarea>
         </div>
         <div class="button-container">
-          <button type="submit">Aceptar cambios</button>
-          <button type="reset" class="reset-button">Cancelar</button>
+          <button type="submit">Acept changes</button>
+          <button type="reset" class="reset-button">Cancel</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
+
+

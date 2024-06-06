@@ -20,7 +20,9 @@ import { CookieService } from '../cookie.service';
 export class RegistroComponent {
   registroForm: FormGroup;
 
+
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private cookieService: CookieService) {
+
     this.registroForm = this.fb.group({
       Name: ['', [Validators.required, this.noWhitespaceValidator]],
       Surname: ['', [Validators.required, this.noWhitespaceValidator]],
@@ -62,10 +64,12 @@ export class RegistroComponent {
       alergens: this.parseIntolerances(document.getElementById('intolerances') as HTMLSelectElement)
     };
 
+
     this.http.post('http://localhost:8080/api/create', user ).subscribe(data => {
       if(data){
         this.router.navigate(['/inicio']);
       } else {
+
         alert('The user could not be registered.');
       }
     });
@@ -120,6 +124,7 @@ export class RegistroComponent {
     return isValid ? null : { dateNotInFuture: true };
   }
 
+
   formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses de 0 a 11, por eso sumamos 1
@@ -134,3 +139,4 @@ export class RegistroComponent {
   }
 
 }
+
