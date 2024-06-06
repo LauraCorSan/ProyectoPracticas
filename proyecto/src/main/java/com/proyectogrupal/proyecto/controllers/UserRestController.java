@@ -8,6 +8,7 @@ import javax.swing.text.html.FormSubmitEvent.MethodType;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
+import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
+import com.proyectogrupal.proyecto.envoltorio.RequestUsernameRequestRecipe;
+import com.proyectogrupal.proyecto.envoltorio.UserRequest;
+import com.proyectogrupal.proyecto.models.dao.IRecipeDao;
 import com.proyectogrupal.proyecto.models.dao.IUserDao;
 import com.proyectogrupal.proyecto.models.entity.Alergen;
+import com.proyectogrupal.proyecto.models.entity.Recipe;
 import com.proyectogrupal.proyecto.models.entity.User;
 import com.proyectogrupal.proyecto.models.services.IUserService;
-import com.proyectogrupal.proyecto.models.services.UserRequest;
 
 import jakarta.servlet.http.Cookie;
 
@@ -31,6 +37,7 @@ public class UserRestController {
 
 	@Autowired
 	private IUserService userService;
+	
 	
 	@GetMapping("/users")
 	public List<User> index() {
@@ -71,5 +78,24 @@ public class UserRestController {
 		return userService.editUser(ur);
 	}
 	
+	@PostMapping("/addRecipe")
+	public User markAsDone(@RequestBody RequestUsernameRequestRecipe request) {
+		RequestUsername restUser = request.getRequestedUsername();
+		RequestRecipe restRecipe = request.getRequestedRecipe();
+		return userService.markAsDone(restRecipe, restUser);
+	}
+	
+	@PostMapping("/getRecipesDone")
+	@Transactional
+	public Set<Recipe> getRecipesDone(@RequestBody RequestUsername userName) {
+		return userService.getRecipesDone(userName);
+	}
+	
+	@PostMapping("/setFavRecipe")
+	public User markAsfav(@RequestBody RequestUsernameRequestRecipe request) {
+		RequestUsername restUser = request.getRequestedUsername();
+		RequestRecipe restRecipe = request.getRequestedRecipe();
+		return userService.markAsFav(restRecipe, restUser);
+	}
 	
 }

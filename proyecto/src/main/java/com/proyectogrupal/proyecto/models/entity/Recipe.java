@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,10 +24,17 @@ public class Recipe implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
-	Double recipeId;
+	Long recipeId;
+	String title;
+	String url;
 	
 	@ManyToMany(mappedBy = "recipes", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<User> users = new HashSet<User>();
+	
+	@ManyToMany(mappedBy = "recipesFav", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<User> usersFav = new HashSet<User>();
 
 	private Long getId() {
 		return id;
@@ -35,12 +44,29 @@ public class Recipe implements Serializable {
 		this.id = id;
 	}
 
-	public Double getRecipeId() {
+	public Long getRecipeId() {
 		return recipeId;
 	}
 
-	public void setRecipeId(Double recipeId) {
+	public void setRecipeId(Long recipeId) {
 		this.recipeId = recipeId;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
 
 }

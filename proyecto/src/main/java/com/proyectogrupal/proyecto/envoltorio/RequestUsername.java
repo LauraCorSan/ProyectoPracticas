@@ -1,6 +1,6 @@
-package com.proyectogrupal.proyecto.controllers;
+package com.proyectogrupal.proyecto.envoltorio;
 public class RequestUsername{
-		String username;
+		public String username;
 		String password;
 		
 		public String getUsername() {

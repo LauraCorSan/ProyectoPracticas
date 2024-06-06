@@ -5,8 +5,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,13 +45,17 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date registrationDate;
 
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE},fetch = FetchType.LAZY)
 	@JoinTable(name = "User_Alergen", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "alergen_id"))
 	private Set<Alergen> alergens = new HashSet<>();
 
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE})
 	@JoinTable(name = "recipes_made", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private Set<Recipe> recipes = new HashSet<>();
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE})
+	@JoinTable(name = "recipes_favourite", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+	private Set<Recipe> recipesFav = new HashSet<>();
 
 	private Long getId() {
 		return id;
@@ -112,13 +120,31 @@ public class User implements Serializable {
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = new Date();
 	}
-
+	
+	@Transactional
 	public Set<Alergen> getAlergens() {
 		return alergens;
 	}
-
+	
 	public void setAlergens(Set<Alergen> alergens) {
 		this.alergens = alergens;
+	}
+	public Set<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(Set<Recipe> recipes) {
+		this.recipes = recipes;
+	}
+	
+	
+	
+	public Set<Recipe> getRecipesFav() {
+		return recipesFav;
+	}
+
+	public void setRecipesFav(Set<Recipe> recipesFav) {
+		this.recipesFav = recipesFav;
 	}
 
 	@Override

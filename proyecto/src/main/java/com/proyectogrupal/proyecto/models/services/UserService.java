@@ -1,6 +1,7 @@
 package com.proyectogrupal.proyecto.models.services;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -12,8 +13,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.proyectogrupal.proyecto.controllers.RequestUsername;
+import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
+import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
+import com.proyectogrupal.proyecto.envoltorio.UserRequest;
 import com.proyectogrupal.proyecto.models.dao.IAlergenDao;
+import com.proyectogrupal.proyecto.models.dao.IRecipeDao;
 import com.proyectogrupal.proyecto.models.dao.IUserDao;
 import com.proyectogrupal.proyecto.models.entity.Alergen;
 import com.proyectogrupal.proyecto.models.entity.Recipe;
@@ -40,11 +44,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserService implements IUserService {
 	@Autowired
 	private IUserDao userDao;
 	@Autowired
 	private IAlergenDao alergenDao;
+	
+	@Autowired 
+	private IRecipeDao recipeDao;
 
 	@Override
 	public List<User> findAll() {
@@ -104,9 +112,62 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public Recipe checkIfMade(Recipe re, RequestUsername ru) {
+	@Transactional
+	public User markAsDone(RequestRecipe re, RequestUsername ru) {
+		Recipe recipe;
+		User user = userDao.findByUsername(ru.getUsername());
+		Set<Recipe> persistedRecipes = user.getRecipes();
 		
-		return null;
+		if(recipeDao.findByrecipeId(re.getRecipeId()).isPresent()) { 
+			recipe = recipeDao.findByrecipeId(re.getRecipeId()).get();
+		}else {
+			recipe = new Recipe();
+			recipe.setRecipeId(re.getRecipeId());
+			recipe.setTitle(re.getTitle());
+			recipe.setUrl(re.getUrl());
+			recipeDao.save(recipe);
+		}
+		
+		
+		if(!persistedRecipes.add(recipe)) {
+			user.setRecipes(persistedRecipes);
+		}
+		
+		return userDao.save(user);
 	}
+
+	@Override
+	@Transactional
+	public Set<Recipe> getRecipesDone(RequestUsername user) {
+		return userDao.findByUsername(user.getUsername()).getRecipes();
+	}
+	
+
+	@Override
+	@Transactional
+	public User markAsFav(RequestRecipe re, RequestUsername ru) {
+		Recipe recipe;
+		User user = userDao.findByUsername(ru.getUsername());
+		Set<Recipe> persistedRecipes = user.getRecipesFav();
+		
+		if(recipeDao.findByrecipeId(re.getRecipeId()).isPresent()) { 
+			recipe = recipeDao.findByrecipeId(re.getRecipeId()).get();
+		}else {
+			recipe = new Recipe();
+			recipe.setRecipeId(re.getRecipeId());
+			recipe.setTitle(re.getTitle());
+			recipe.setUrl(re.getUrl());
+			recipeDao.save(recipe);
+		}
+		
+		
+		if(!persistedRecipes.add(recipe)) {
+			user.setRecipesFav(persistedRecipes);
+		}
+		
+		return userDao.save(user);
+	}
+	
+	
 
 }
