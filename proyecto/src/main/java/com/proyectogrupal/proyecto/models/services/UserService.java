@@ -108,6 +108,16 @@ public class UserService implements IUserService {
 			usr.setDateOfBirth(ur.getDateOfBirth());
 		}
 		
+		if(ur.getAlergens() != null && !ur.getAlergens().isEmpty()) {
+			Set<Alergen> alergens = new HashSet<>();
+			for(Alergen aler:ur.getAlergens()) {
+				alergens.add(alergenDao.findByName(aler.getName()));
+			}
+			usr.setAlergens(alergens);
+		}else {
+			usr.setAlergens(new HashSet<Alergen>());
+		}
+		
 		return userDao.save(usr);
 	}
 

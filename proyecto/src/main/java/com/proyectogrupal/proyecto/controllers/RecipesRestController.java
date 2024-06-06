@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonObject;
 import com.proyectogrupal.proyecto.models.services.ExternalApiService;
 import com.proyectogrupal.proyecto.models.services.RecipeService;
+import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
 import com.proyectogrupal.proyecto.models.entity.Recipe;
 @CrossOrigin(origins = {"http://localhost:4200"} , methods = {RequestMethod.POST,RequestMethod.GET})
 @RestController
@@ -31,6 +34,12 @@ public class RecipesRestController {
 	public List<Map<String, Object>> callExtern() {
 		return extern.callExternalApi();
 	}
+	
+	@PostMapping("/getByAler")
+	public List<Map<String, Object>> callExternByAler(@RequestBody RequestUsername username) {
+		return extern.callExternalApiWithFilters(username);
+	}
+	
 	
 	@GetMapping("/getRegistered")
 	public List<Recipe> getRegisteredRecipes() {
