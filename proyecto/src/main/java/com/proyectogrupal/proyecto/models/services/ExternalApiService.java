@@ -2,6 +2,8 @@ package com.proyectogrupal.proyecto.models.services;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,12 +31,12 @@ public class ExternalApiService {
 	private Gson gson = new Gson();
 
 	public List<Map<String, Object>> callExternalApi() {
-		String url = "https://api.spoonacular.com/recipes/complexSearch";
+		String url = "https://api.spoonacular.com/recipes/random?number=10";
 		/*
 		 * Construye los headers de la llamada a la API para agregar las credenciales
 		 */
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authotization", this.apiKey);
+		headers.set("apiKey", this.apiKey);
 		/*
 		 * Construyo la url con la API key para que deje acceder a los datos
 		 */
@@ -50,13 +52,22 @@ public class ExternalApiService {
 
 		try {
 			JsonObject jsob = gson.fromJson(response.getBody(), JsonObject.class);
-			JsonArray resultsArray = jsob.getAsJsonArray("results");
+			JsonArray recipesArray = jsob.getAsJsonArray("recipes");
 
-			Type listType = new TypeToken<List<Map<String, Object>>>() {
-			}.getType();
-			List<Map<String, Object>> resultsList = gson.fromJson(resultsArray, listType);
+			List<Map<String, Object>> formatedResponse = new ArrayList<>();
 
-			return resultsList;
+			for (int i = 0; i < recipesArray.size(); i++) {
+				JsonObject recipe = recipesArray.get(i).getAsJsonObject();
+				Float id = recipe.get("id").getAsFloat();
+				String title = recipe.get("title").getAsString();
+				String image = recipe.get("image").getAsString();
+				Map<String, Object> recipeMap = new HashMap<String, Object>();
+				recipeMap.put("id", id);
+				recipeMap.put("title", title);
+				recipeMap.put("image", image);
+				formatedResponse.add(recipeMap);
+			}
+			return formatedResponse;
 		} catch (JsonSyntaxException e) {
 			List<Map<String, Object>> errorResponse = List.of(Map.of("error", "Error processing the JSON response"));
 			return errorResponse;

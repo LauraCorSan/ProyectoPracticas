@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Alergen implements Serializable {
 	private String name;
 	
 	@ManyToMany(mappedBy = "alergens", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<User> users = new HashSet<User>();
 	
 	
@@ -43,5 +46,15 @@ public class Alergen implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
+	
 
 }
