@@ -6,6 +6,7 @@ import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
 import { InicioComponent } from '../inicio/inicio.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private cookieService: CookieService) {
     this.loginForm = this.fb.group({
       UserName: ['', [Validators.required, this.noWhitespaceValidator]],
       Password: ['', [Validators.required, this.noWhitespaceValidator]]
@@ -39,6 +40,7 @@ export class LoginComponent {
 
     this.http.post('http://localhost:8080/api/login', user ).subscribe(data => {
       if(data){
+        this.cookieService.set('usuario', 'userName')
         this.router.navigate(['/inicio']);
       } else {
         alert('El usuario o la contraseña no son validos');
