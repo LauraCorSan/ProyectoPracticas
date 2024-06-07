@@ -100,4 +100,10 @@ public class UserRestController {
 		return userService.markAsFav(restRecipe, restUser);
 	}
 	
+	@PostMapping("/getRecipesFav")
+	@Transactional
+	public Set<Recipe> getRecipesFav(@RequestBody RequestUsername userName) {
+		return userService.getRecipesFav(userName);
+	}
+	
 }

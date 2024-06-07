@@ -37,4 +37,6 @@ public interface IUserService {
 	public  Set<Recipe> getRecipesDone(RequestUsername user);
 	
 	public User markAsFav(RequestRecipe rr , RequestUsername ru);
+	
+	public Set<Recipe> getRecipesFav(RequestUsername user);
 }
