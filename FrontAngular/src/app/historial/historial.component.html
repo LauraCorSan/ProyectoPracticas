@@ -1,20 +1,9 @@
 <app-cabecera></app-cabecera>
 <div id="espacio">
     <div id="contenido">
-        <div class="receta">
-            <!-- Aquí tenemos que hacer un for con todas las recetas que devuelve el back -->
-            <a href="">Paella</a>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwYWOyd0ZQ1hzwWGPr_NQ_GSOz2hGMZvyZfw&s" alt="Hamburguesa con queso y lechuga">
-        </div>
-        <div class="receta">
-            <!-- Aquí tenemos que hacer un for con todas las recetas que devuelve el back -->
-            <a href="">Paella</a>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwYWOyd0ZQ1hzwWGPr_NQ_GSOz2hGMZvyZfw&s" alt="Hamburguesa con queso y lechuga">
-        </div>
-        <div class="receta">
-            <!-- Aquí tenemos que hacer un for con todas las recetas que devuelve el back -->
-            <a href="">Paella</a>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwYWOyd0ZQ1hzwWGPr_NQ_GSOz2hGMZvyZfw&s" alt="Hamburguesa con queso y lechuga">
+        <div *ngFor="let recipe of recipes" class="receta">
+            <a href="" [id]="recipe.id">{{ recipe.title }}</a><br>
+            <img [src]="recipe.url" [alt]="recipe.title">
         </div>
     </div>
 </div> 

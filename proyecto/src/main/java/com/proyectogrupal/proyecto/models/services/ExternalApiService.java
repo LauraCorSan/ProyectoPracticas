@@ -34,7 +34,7 @@ public class ExternalApiService {
 	IUserDao userDao;
 	@Autowired
 	private RestTemplate restTemplate;
-	private String apiKey = "e92ce92eb2d846418968a9f01f8871ec";
+	private String apiKey = "40b06c440fc24afb9067a886a34b2130";
 	private Gson gson = new Gson();
 
 	public List<Map<String, Object>> callExternalApi() {
