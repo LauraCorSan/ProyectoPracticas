@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
   styleUrl: './buscador.component.scss'
 })
 export class BuscadorComponent {
+  recipes: any[] = [];
+  
   constructor(private http: HttpClient,  private cookieService: CookieService, private router: Router) {}
   validateFields(): boolean {
     return true;
@@ -40,6 +42,54 @@ export class BuscadorComponent {
       option.text = tipo.type;
       selectElement.add(option);
     });
+  }
+
+  recipeFav(recipeId: number, recipeTitle: string, recipeImg: string) {
+    if (this.cookieService.get('usuario') != null && this.cookieService.get('usuario') != "") {
+      const user = {
+        username: this.cookieService.get('usuario')
+      };
+
+      const recipe = {
+        recipeId: recipeId,
+        title: recipeTitle,
+        url: recipeImg
+      };
+
+      const request = {
+        requestedUsername: user,
+        requestedRecipe: recipe
+      };
+      this.http.post('http://localhost:8080/api/setFavRecipe', request).subscribe(data => {
+        if (data) {
+          alert('Receta añadida correctamente');
+        }
+      });
+    }
+  }
+
+  recipeMade(recipeId: number, recipeTitle: string, recipeImg: string) {
+    if (this.cookieService.get('usuario') != null && this.cookieService.get('usuario') != "") {
+      const user = {
+        username: this.cookieService.get('usuario')
+      };
+
+      const recipe = {
+        recipeId: recipeId,
+        title: recipeTitle,
+        url: recipeImg
+      };
+
+      const request = {
+        requestedUsername: user,
+        requestedRecipe: recipe
+      };
+      this.http.post('http://localhost:8080/api/addRecipe', request).subscribe(data => {
+        if (data) {
+          alert('Receta añadida correctamente');
+        }
+      });
+    }
   }
 }
 
