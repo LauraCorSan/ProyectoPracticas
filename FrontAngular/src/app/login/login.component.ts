@@ -40,7 +40,7 @@ export class LoginComponent {
 
     this.http.post('http://localhost:8080/api/login', user ).subscribe(data => {
       if(data){
-        this.cookieService.set('usuario', 'userName')
+        this.cookieService.set('usuario', username)
         this.router.navigate(['/inicio']);
       } else {
         alert('El usuario o la contraseña no son validos');

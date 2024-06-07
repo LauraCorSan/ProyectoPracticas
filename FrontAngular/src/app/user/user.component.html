@@ -1,4 +1,4 @@
-<app-cabecera></app-cabecera>
+<!--<app-cabecera></app-cabecera>-->
 <div class="outer-container">
   <div class="info-container">
     <div class="image-container">
@@ -8,38 +8,48 @@
       <div class="profile-header">
         <h1>User Profile</h1>
         <div class="button-images">
-          <button routerLink="/historial" routerLinkActive="active" class="image-button">
-            <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-basic-1-line-cut/468/34-order_history-1024.png" alt="Image 1">
+          <button routerLink="/historial" routerLinkActive="active" class="image-button" ariaCurrentWhenActive="page">
+            <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-basic-1-line-cut/468/34-order_history-1024.png" alt="Historial">
           </button>
-          <button routerLink="/favoritos" routerLinkActive="active" class="image-button">
-            <img src="https://cdn-icons-png.flaticon.com/512/2919/2919643.png" alt="Image 2">
+          <button routerLink="/favoritos" routerLinkActive="active" class="image-button" ariaCurrentWhenActive="page">
+            <img src="https://cdn-icons-png.flaticon.com/512/2919/2919643.png" alt="Favorites">
           </button>
         </div>
       </div>
       <form class="edit-form" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="Nombre">Name:</label>
-          <input type="text" id="Nombre" [(ngModel)]="user.name" name="name">
+          <label for="Username">Username:</label>
+          <input type="text" id="Username" [(ngModel)]="user.username" name="username" readonly>
         </div>
         <div class="form-group">
-          <label for="Apellido">Surname:</label>
-          <input type="text" id="Apellido" [(ngModel)]="user.surname" name="surname">
+          <label for="Name">Name:</label>
+          <input type="text" id="Name" [(ngModel)]="user.name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="Surname">Surname:</label>
+          <input type="text" id="Surname" [(ngModel)]="user.surname" name="surname">
         </div>
         <div class="form-group">
           <label for="Email">Email:</label>
           <input type="email" id="Email" [(ngModel)]="user.email" name="email">
         </div>
         <div class="form-group">
-          <label for="Intolerancias">Allergies/Intolerances:</label>
-          <textarea id="Intolerancias" [(ngModel)]="user.intolerances" name="intolerances"></textarea>
+          <label for="Password">Password:</label>
+          <input type="password" id="Password" [(ngModel)]="user.password" name="password">
+        </div>
+        <div class="form-group">
+          <label for="DateOfBirth">Date of birth:</label>
+          <input type="date" id="DateOfBirth" [(ngModel)]="user.dateOfBirth" name="dateOfBirth">
+        </div>
+        <div class="form-group">
+          <label for="Alergens">Allergies/Intolerances:</label>
+          <textarea id="Alergens" [(ngModel)]="allergenString" name="alergens" readonly></textarea>
         </div>
         <div class="button-container">
-          <button type="submit">Acept changes</button>
-          <button type="reset" class="reset-button">Cancel</button>
+          <button type="submit">Accept changes</button>
+          <button type="reset" class="reset-button" (click)="onCancel()">Cancel</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
-

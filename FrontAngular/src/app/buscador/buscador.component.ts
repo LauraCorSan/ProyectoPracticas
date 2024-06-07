@@ -1,29 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { CookieService } from '../cookie.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscador',
   standalone: true,
-  imports: [CabeceraComponent],
+  imports: [CabeceraComponent, CommonModule],
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.scss']
 })
-export class BuscadorComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+
+export class BuscadorComponent {
+  constructor(private http: HttpClient,  private cookieService: CookieService, private router: Router) {}
+  validateFields(): boolean {
+    const nameField = document.getElementById('name') as HTMLInputElement;
+    return this.isFilled(nameField);  }
 
   ngOnInit() {
-    this.http.get('http://localhost:8080/cuisine/getAll').subscribe((data: any) => {
-      if (data && Array.isArray(data) && data.length > 0) {
-        this.insertCuisine(data);
+    if(this.cookieService.get('usuario') == null || this.cookieService.get('usuario') == ""){
+      this.router.navigate(['/bienvenida']);
+    }
+    //Llamar api tipos cocina
+    this.http.get('http://localhost:8080/cuisine/getAll').subscribe(data => {
+      if(data){
+        if (Array.isArray(data) && data.length > 0) {
+          this.insertCuisine(data);
+        }
       }
     });
   }
 
-  validateFields(): boolean {
-    const nameField = document.getElementById('name') as HTMLInputElement;
-    return this.isFilled(nameField);
-  }
+
 
   insertCuisine(tiposCocina: any[]) {
     const selectElement = document.getElementById('type') as HTMLSelectElement;
@@ -43,4 +53,5 @@ export class BuscadorComponent implements OnInit {
     }
     return true;
   }
+
 }

@@ -1,0 +1,28 @@
+<!--<app-cabecera></app-cabecera>-->
+<div class="outer-container">
+  <div class="form-container">
+    <div class="image-container">
+      <img src="https://thefoodtech.com/wp-content/uploads/2020/12/ingredientes-saludables.jpg" alt="Background Image">
+    </div>
+
+    <div class="text-content">
+      <h1>Create Recipe</h1>
+    </div>
+
+    <form [formGroup]="recetaForm" class="receta-form" (ngSubmit)="onSubmit()">
+      <input type="text" formControlName="Name" placeholder="Recipe name">
+      <textarea style="width: 791px; height: 95px;" type="text" formControlName="Description" placeholder="Description" style="width: 800px"></textarea>
+
+    <label for="ingredients">Ingredients</label>
+
+      <select formControlName="Ingredients" id="ingredients" multiple>
+        <option value="none">None</option>
+      </select>
+
+      <div class="button-container">
+        <button type="submit">Sumbit</button>
+      </div>
+
+    </form>
+  </div>
+</div>

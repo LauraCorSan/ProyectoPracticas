@@ -1,10 +1,13 @@
 package com.proyectogrupal.proyecto.models.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.proyectogrupal.proyecto.controllers.RequestUsername;
+import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
+import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
+import com.proyectogrupal.proyecto.envoltorio.UserRequest;
 import com.proyectogrupal.proyecto.models.entity.Recipe;
 import com.proyectogrupal.proyecto.models.entity.User;
 
@@ -29,5 +32,11 @@ public interface IUserService {
 	 */
 	public User editUser(UserRequest ur);
 	
-	public Recipe checkIfMade(Recipe re , RequestUsername ru);
+	public User markAsDone(RequestRecipe rr , RequestUsername ru);
+	
+	public  Set<Recipe> getRecipesDone(RequestUsername user);
+	
+	public User markAsFav(RequestRecipe rr , RequestUsername ru);
+	
+	public Set<Recipe> getRecipesFav(RequestUsername user);
 }

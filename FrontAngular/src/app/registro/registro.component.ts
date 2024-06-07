@@ -4,18 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from '../cookie.service';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private cookieService: CookieService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.registroForm = this.fb.group({
       Username: ['', [Validators.required, this.noWhitespaceValidator]],
       Name: ['', [Validators.required, this.noWhitespaceValidator]],
@@ -43,13 +44,14 @@ export class RegistroComponent {
       return;
     }
     const formValues = this.registroForm.value;
+
     const user = {
-      name: formValues.Nombre,
-      surname: formValues.Apellido,
-      email: formValues.CorreoElectronico,
-      username: formValues.NombreUsuario,
-      password: formValues.Contraseña,
-      dateOfBirth: formValues.FechaNacimiento,
+      name: formValues.Name,
+      surname: formValues.Surname,
+      email: formValues.Email,
+      username: formValues.Username,
+      password: formValues.Password,
+      dateOfBirth: formValues.BirthDate,
       registrationDate: this.formatDate(new Date()),
       alergens: this.parseIntolerances(document.getElementById('intolerances') as HTMLSelectElement)
     };
