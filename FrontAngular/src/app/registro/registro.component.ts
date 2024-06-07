@@ -3,16 +3,15 @@ import { RouterOutlet, Router } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
-import { InicioComponent } from '../inicio/inicio.component';
+import { LoginComponent } from '../login/login.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CookieService } from '../cookie.service'; 
 
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive, InicioComponent, BienvenidaComponent],
+  imports: [ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, BienvenidaComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })
@@ -21,7 +20,7 @@ export class RegistroComponent {
   registroForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private cookieService: CookieService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
 
     this.registroForm = this.fb.group({
       Name: ['', [Validators.required, this.noWhitespaceValidator]],
@@ -30,7 +29,7 @@ export class RegistroComponent {
       Username: ['', [Validators.required, this.noWhitespaceValidator]],
       Password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$/)]],
       BirthDate: ['', [Validators.required, this.dateNotInFutureValidator]],
-      Intolerances: [[], Validators.required]//TODO
+      Intolerances: [[], Validators.required]
     });
   }
 
@@ -42,17 +41,15 @@ export class RegistroComponent {
         }
       }
     });
-    // Esta línea hay que ponerla en el login cuando el inicio de sesión es correcto con su userName y borrarla de aquí
-    //this.cookieService.set('usuario', 'userName');
   }
- 
+
   onSubmit() {
     if (this.registroForm.invalid) {
       this.showErrors();
       return;
     }
     const formValues = this.registroForm.value;
-  
+
     const user = {
       name: formValues.Name,
       surname: formValues.Surname,
@@ -67,7 +64,7 @@ export class RegistroComponent {
 
     this.http.post('http://localhost:8080/api/create', user ).subscribe(data => {
       if(data){
-        this.router.navigate(['/inicio']);
+        this.router.navigate(['/login']);
       } else {
 
         alert('The user could not be registered.');
