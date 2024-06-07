@@ -1,24 +1,21 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 import { BienvenidaComponent } from './bienvenida.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
+import { By } from '@angular/platform-browser';
 
 describe('BienvenidaComponent', () => {
   let component: BienvenidaComponent;
   let fixture: ComponentFixture<BienvenidaComponent>;
   let router: Router;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([]),
-        // Remove BienvenidaComponent from here
-      ],
-      declarations: [BienvenidaComponent], // Declare the component here
-      schemas: [NO_ERRORS_SCHEMA] // Ignore any template errors
-    }).compileComponents();
-  });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ],
+      declarations: [ BienvenidaComponent ]
+    })
+    .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BienvenidaComponent);
@@ -27,21 +24,27 @@ describe('BienvenidaComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should navigate to "/login" when "Inicia Sesión" button is clicked', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    const button = fixture.nativeElement.querySelector('.button');
-    button.click();
-    fixture.detectChanges();
-    expect(navigateSpy).toHaveBeenCalledTimes(1);
-    expect(navigateSpy).toHaveBeenCalledWith(['/login']);
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
-    
-  it('should navigate to "/registro" when "Regístrate" link is clicked', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    const link = fixture.nativeElement.querySelector('.link');
-    link.click();
+
+  it('should navigate to login when login button is clicked', () => {
+    const loginButton = fixture.debugElement.query(By.css('.button[href="/login"]'));
+    const navigateSpy = spyOn(router, 'navigateByUrl');
+
+    loginButton.nativeElement.click();
     fixture.detectChanges();
-    expect(navigateSpy).toHaveBeenCalledTimes(1);
-    expect(navigateSpy).toHaveBeenCalledWith(['/registro']);
+
+    expect(navigateSpy).toHaveBeenCalledWith('/login');
+  });
+
+  it('should navigate to register when register button is clicked', () => {
+    const registerButton = fixture.debugElement.query(By.css('.link[href="/registro"]'));
+    const navigateSpy = spyOn(router, 'navigateByUrl');
+
+    registerButton.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(navigateSpy).toHaveBeenCalledWith('/registro');
   });
 });

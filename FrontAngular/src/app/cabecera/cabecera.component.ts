@@ -8,7 +8,7 @@ import { BuscadorComponent } from '../buscador/buscador.component';
 @Component({
   selector: 'app-cabecera',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, BuscadorComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './cabecera.component.html',
   styleUrl: './cabecera.component.scss'
 })

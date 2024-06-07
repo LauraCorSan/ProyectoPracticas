@@ -6,4 +6,5 @@ export class User {
         public email: string,
         public intolerances: string[]
     ) {}
+
 }

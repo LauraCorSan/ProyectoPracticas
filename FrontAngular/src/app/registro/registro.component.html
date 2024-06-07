@@ -4,35 +4,27 @@
       <img src="https://astelus.com/wp-content/viajes/preparar-Enchilada.jpg" alt="Background Image">
     </div>
     <div class="text-content">
-      <h1>Iniciar Sesión</h1>
+      <h1>Sign in</h1>
     </div>
-    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="sign-in-form">
-      <input type="text" formControlName="NombreUsuario" placeholder="Nombre de usuario">
-      <input type="text" formControlName="Nombre" placeholder="Nombre">
-      <input type="text" formControlName="Apellido" placeholder="Apellido">
-      <input type="email" formControlName="CorreoElectronico" placeholder="Correo electrónico">
-      <input type="password" formControlName="Contraseña" placeholder="Contraseña">
-      <input type="date" formControlName="FechaNacimiento" placeholder="Fecha de nacimiento">
 
-      <label for="intolerances">Alergias/Intolerancias</label>
-      <select formControlName="Intolerancias" id="intolerances" multiple>
+    <form [formGroup]="registroForm" class="sign-in-form" (ngSubmit)="onSubmit()">
+      <input type="text" id="username" formControlName="Username" placeholder="User name">
+      <input type="text" id="name" formControlName="Name" placeholder="Name">
+      <input type="text" id="surname" formControlName="Surname" placeholder="Surname">
+      <input type="email" id="email" formControlName="Email" placeholder="Email">
+      <input type="password" id="password" formControlName="Password" placeholder="Password">
+      <input type="date" id="birthdate" formControlName="BirthDate" placeholder="Birth Date">
+      
+    <label for="intolerances">Allergies/Intolerances</label>
+
+      <select formControlName="Intolerances" id="intolerances" multiple>
         <option value="none">None</option>
-        <option value="dairy">Dairy</option>
-        <option value="egg">Egg</option>
-        <option value="gluten">Gluten</option>
-        <option value="grain">Grain</option>
-        <option value="peanut">Peanut</option>
-        <option value="seafood">Seafood</option>
-        <option value="sesame">Sesame</option>
-        <option value="shellfish">Shellfish</option>
-        <option value="tree-nut">Tree Nut</option>
-        <option value="soy">Soy</option>
-        <option value="sulfite">Sulfite</option>
-        <option value="wheat">Wheat</option>
       </select>
       <div class="button-container">
-        <button type="submit">Enviar</button>
-        <button routerLink="/bienvenida" routerLinkActive="active" type="reset" class="reset-button">Volver</button>
+
+        <button type="submit">Sumbit</button>
+        <button routerLink="/bienvenida" routerLinkActive="active" type="reset" class="reset-button">Back</button>
+
       </div>
     </form>
   </div>

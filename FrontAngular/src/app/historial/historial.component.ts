@@ -6,7 +6,8 @@ import { CabeceraComponent } from '../cabecera/cabecera.component';
   standalone: true,
   imports: [CabeceraComponent],
   templateUrl: './historial.component.html',
-  styleUrls: ['./historial.component.scss']})
+  styleUrl: './historial.component.scss'
+})
 export class HistorialComponent {
 
 }

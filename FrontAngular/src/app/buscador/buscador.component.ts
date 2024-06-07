@@ -1,51 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-buscador',
   standalone: true,
-  imports: [ CommonModule, FormsModule],
+  imports: [CabeceraComponent],
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.scss']
 })
-export class BuscadorComponent {
-  recipeName: string = '';
-  recipeType: string = '';
-  maxCalories: number | null = null;
-  minCalories: number | null = null;
-  ingredients: string = '';
+export class BuscadorComponent implements OnInit {
+  constructor(private http: HttpClient) {}
 
-  validateFields():void {
-    if (!this.isFilled(this.recipeName, 'Recipe name'))       console.log( false);
+  ngOnInit() {
+    this.http.get('http://localhost:8080/cuisine/getAll').subscribe((data: any) => {
+      if (data && Array.isArray(data) && data.length > 0) {
+        this.insertCuisine(data);
+      }
+    });
+  }
 
-    if (!this.isFilled(this.recipeType, 'Recipe type'))       console.log( false);
+  validateFields(): boolean {
+    const nameField = document.getElementById('name') as HTMLInputElement;
+    return this.isFilled(nameField);
+  }
 
-    if (this.maxCalories === null || this.maxCalories === undefined) {
-      alert('The field "Maximum calories" is empty');
-      console.log( false);
-    }
-    if (this.minCalories === null || this.minCalories === undefined) {
-      alert('The field "Minimum calories" is empty');
-      console.log( false);    }
-    if (!this.isFilled(this.ingredients, 'Ingredients'))  console.log( false);
+  insertCuisine(tiposCocina: any[]) {
+    const selectElement = document.getElementById('type') as HTMLSelectElement;
+    tiposCocina.forEach(tipo => {
+      const option = document.createElement('option');
+      option.value = tipo.type;
+      option.text = tipo.type;
+      selectElement.add(option);
+    });
+  }
 
-    if (!this.isSingleWord(this.recipeName)||!this.isFilled(this.recipeName, 'Recipe name')) {
-      alert('The field "Recipe name" should contain only one word');
-      console.log( false);    }
-
-      console.log( true);  }
-
-  isFilled(value: string, fieldName: string): boolean {
-    if (!value || value.trim().length === 0) {
-      alert(`The field "${fieldName}" is empty`);
+  private isFilled(field: HTMLInputElement): boolean {
+    const value = field.value;
+    if (value == null || value.trim().length === 0) {
+      alert(`The field "${field.name}" is empty`);
       return false;
     }
     return true;
-  }
-
-  isSingleWord(value: string): boolean {
-    return /^\S+$/.test(value);
   }
 }

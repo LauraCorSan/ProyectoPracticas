@@ -10,11 +10,10 @@ import { RegistroComponent } from '../registro/registro.component';
 @Component({
   selector: 'app-bienvenida',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive,    ],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive,   ],
   templateUrl: './bienvenida.component.html',
   styleUrl: './bienvenida.component.scss'
 })
 
 export class BienvenidaComponent {
-  
 }

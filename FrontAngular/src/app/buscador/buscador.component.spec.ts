@@ -1,15 +1,16 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from './buscador.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
 
 describe('BuscadorComponent', () => {
   let component: BuscadorComponent;
   let fixture: ComponentFixture<BuscadorComponent>;
+  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [] // Elimina la declaración de BuscadorComponent aquí
+      imports: [HttpClientTestingModule, BuscadorComponent]
     })
     .compileComponents();
   });
@@ -17,66 +18,49 @@ describe('BuscadorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BuscadorComponent);
     component = fixture.componentInstance;
+    httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
-  });
-  it('should validate empty fields correctly', () => {
-    spyOn(window, 'alert'); // Mock alert function
-  
-    // Test empty fields
-    component.validateFields();
-    expect(window.alert).toHaveBeenCalledTimes(6); // Six alerts for empty fields
-  });
-  
-  it('should validate filled fields correctly', () => {
-    spyOn(window, 'alert'); // Mock alert function
-  
-    // Set values for filled fields
-    component.recipeName = 'Pasta';
-    component.recipeType = 'African';
-    component.maxCalories = 500;
-    component.minCalories = 200;
-    component.ingredients = 'Pasta, Tomato sauce, Ground beef';
-  
-    // Test filled fields
-    component.validateFields();
-    expect(window.alert).not.toHaveBeenCalled(); // No alerts for filled fields
-  });
-  
-  it('should validate empty fields correctly', () => {
-    spyOn(window, 'alert'); // Mock alert function
-  
-    // Test empty fields
-    component.validateFields();
-    expect(window.alert).toHaveBeenCalledTimes(6); // Six alerts for empty fields
-  });
-  
-  it('should validate filled fields correctly', () => {
-    spyOn(window, 'alert'); // Mock alert function
-  
-    // Set values for filled fields
-    component.recipeName = 'Pasta';
-    component.recipeType = 'African';
-    component.maxCalories = 500;
-    component.minCalories = 200;
-    component.ingredients = 'Pasta, Tomato sauce, Ground beef';
-  
-    // Test filled fields
-    component.validateFields();
-    expect(window.alert).not.toHaveBeenCalled(); // No alerts for filled fields
-  });
-  
-  it('should check if a string is filled', () => {
-    expect(component.isFilled('', 'Test Field')).toBeFalse(); // Empty string
-    expect(component.isFilled('Test', 'Test Field')).toBeTrue(); // Filled string
+  afterEach(() => {
+    httpMock.verify();
   });
 
-  it('should check if a string contains a single word', () => {
-    expect(component.isSingleWord('')).toBeFalse(); // Empty string
-    expect(component.isSingleWord('Test Test')).toBeFalse(); // Multiple words
-    expect(component.isSingleWord('Test')).toBeTrue(); // Single word
+  it('should create the component', () => {
+    const req = httpMock.expectOne('http://localhost:8080/cuisine/getAll');
+    req.flush([]);
+    expect(component).toBeTruthy();
   });
+
+  it('should populate types dropdown with data from API', () => {
+    const mockData = [{ type: 'Type1' }, { type: 'Type2' }];
+    const req = httpMock.expectOne('http://localhost:8080/cuisine/getAll');
+    req.flush(mockData);
+    fixture.detectChanges();
+
+    const selectElement = fixture.debugElement.query(By.css('#type')).nativeElement;
+    expect(selectElement.options.length).toBe(mockData.length);
+    expect(selectElement.options[0].value).toBe(mockData[0].type);
+    expect(selectElement.options[1].value).toBe(mockData[1].type);
+  });
+
+  it('should validate fields correctly', () => {
+    const req = httpMock.expectOne('http://localhost:8080/cuisine/getAll');
+    req.flush([]);
+    fixture.detectChanges();
+
+    const nameField = fixture.debugElement.query(By.css('#name')).nativeElement;
+
+    // Test empty name field
+    nameField.value = '';
+    nameField.dispatchEvent(new Event('input'));
+    expect(component.validateFields()).toBe(false);
+
+    // Test valid name field
+    nameField.value = 'Test Recipe';
+    nameField.dispatchEvent(new Event('input'));
+    expect(component.validateFields()).toBe(true);
+  });
+
+  // Add more tests for other functionalities...
 });

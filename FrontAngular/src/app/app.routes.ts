@@ -16,4 +16,5 @@ export const routes: Routes = [
     { path: 'historial', component: HistorialComponent },
     { path: 'perfil', component: UserComponent },
     { path: 'registro', component: RegistroComponent }
+
 ];

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HistorialComponent } from './historial.component';
+import { CabeceraComponent } from '../cabecera/cabecera.component';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('HistorialComponent', () => {
   let component: HistorialComponent;
@@ -8,12 +10,22 @@ describe('HistorialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HistorialComponent], // Import the standalone component here
+      imports: [CabeceraComponent], // Importa los módulos o componentes necesarios
       providers: [
-        { provide: ActivatedRoute, useValue: {} } // Provide ActivatedRoute as needed
-      ]
-    })
-    .compileComponents();
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: of({}),
+            snapshot: {
+              paramMap: {
+                get: () => 'some_value'
+              }
+            }
+          }
+        }
+      ],
+      declarations: [] // No declares HistorialComponent aquí
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -25,4 +37,6 @@ describe('HistorialComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // Aquí puedes agregar más pruebas según tus necesidades
 });
