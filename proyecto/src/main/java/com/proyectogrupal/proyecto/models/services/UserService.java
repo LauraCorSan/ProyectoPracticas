@@ -178,6 +178,12 @@ public class UserService implements IUserService {
 		return userDao.save(user);
 	}
 	
+	@Override
+	@Transactional
+	public Set<Recipe> getRecipesFav(RequestUsername user) {
+		return userDao.findByUsername(user.getUsername()).getRecipes();
+	}
+	
 	
 
 }
