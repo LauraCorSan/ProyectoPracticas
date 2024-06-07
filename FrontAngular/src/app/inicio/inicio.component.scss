@@ -104,3 +104,38 @@ button:hover {
 hr{
     border: solid 1px  rgb(247, 222, 177);
 }
+
+.filter{
+    display: inline;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px; 
+    height: 20px;
+    border-radius: 5px; 
+    border: 1px solid orange; 
+    vertical-align: middle;
+    position: relative;
+}
+
+input[type="checkbox"]::after {
+    content: '\2714'; 
+    font-size: 16px; 
+    color: white;
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; 
+}
+
+input[type="checkbox"]:checked {
+    background-color: orange; 
+}
+
+input[type="checkbox"]:checked::after {
+    display: block;
+}

@@ -4,13 +4,16 @@
 </div>
 <div id="espacio">
     <div id="contenido">
+        <input type="checkbox" (change)="changeFilter()">
+        <div *ngIf="filter == 'none'" class="filter">Filter by intolerances</div>
+        <div *ngIf="filter != 'none'" class="filter">Filter without intolerances</div>
         <div *ngFor="let recipe of recipes" class="receta">
             <!-- Cuando pulse el enlace hay que llamar a la api pasando el id para que devuelva la receta -->
             <a href="" [id]="recipe.id">{{ recipe.title }}</a><br>
             <img [src]="recipe.image" [alt]="recipe.title">
             <div id="botones">
-                <button  class="button">Add to favorites</button>
-                <button  class="button">Add to history</button>
+                <button  class="button" (click)="recipeFav(recipe.id, recipe.title, recipe.image)">Add to favorites</button>
+                <button  class="button" (click)="recipeMade(recipe.id, recipe.title, recipe.image)">Add to history</button>
             </div>
             <hr>
         </div>
