@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,6 +24,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.proyectogrupal.proyecto.envoltorio.RecipeInformation;
+import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
 import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
 import com.proyectogrupal.proyecto.models.dao.IUserDao;
 import com.proyectogrupal.proyecto.models.entity.Alergen;
@@ -34,7 +37,7 @@ public class ExternalApiService {
 	IUserDao userDao;
 	@Autowired
 	private RestTemplate restTemplate;
-	private String apiKey = "e92ce92eb2d846418968a9f01f8871ec";
+	private String apiKey = "40b06c440fc24afb9067a886a34b2130";
 	private Gson gson = new Gson();
 
 	public List<Map<String, Object>> callExternalApi() {
@@ -80,20 +83,20 @@ public class ExternalApiService {
 			return errorResponse;
 		}
 	}
-	
+
 	@Transactional
 	public List<Map<String, Object>> callExternalApiWithFilters(RequestUsername username) {
 		String url = "https://api.spoonacular.com/recipes/random?number=10";
-		
+
 		User user = userDao.findByUsername(username.getUsername());
 		StringBuilder sb = new StringBuilder();
 		sb.append(url).append("&exclude-tags=");
-		if(user.getAlergens() != null && !user.getAlergens().isEmpty()) {
-			for(Alergen aler : user.getAlergens()) {
+		if (user.getAlergens() != null && !user.getAlergens().isEmpty()) {
+			for (Alergen aler : user.getAlergens()) {
 				sb.append(aler.getName()).append(",");
 			}
 			url = sb.toString().substring(0, sb.toString().length() - 1);
-		}else {
+		} else {
 			return callExternalApi();
 		}
 		/*
@@ -136,5 +139,32 @@ public class ExternalApiService {
 			List<Map<String, Object>> errorResponse = List.of(Map.of("error", "Error processing the JSON response"));
 			return errorResponse;
 		}
+	}
+
+	public RecipeInformation getRecipeInformation(RequestRecipe requestRecipe) {
+		String url = "https://api.spoonacular.com/recipes/" + requestRecipe.getRecipeId() + "/information";
+		/*
+		 * Construye los headers de la llamada a la API para agregar las credenciales
+		 */
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("apiKey", this.apiKey);
+		/*
+		 * Construyo la url con la API key para que deje acceder a los datos
+		 */
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("apiKey", this.apiKey);
+		/*
+		 * Contruyo una entidad HTTP por que la consume el etodo exchange , contiene los
+		 * datos de la cabecera
+		 */
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity,
+				String.class);
+
+		String json = response.getBody();
+
+		Gson gsonInfor = new Gson();
+		return gsonInfor.fromJson(json, RecipeInformation.class);
+
 	}
 }
