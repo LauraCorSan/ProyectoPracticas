@@ -1,7 +1,18 @@
-<div class="form-container">
-    <form class="login-form">
-        <input type="text" name="user" id="user" placeholder="Username">
-        <input type="password" name="pass" id="pass" placeholder="Password">
+<div class="outer-container">
+  <div class="form-container">
+    <div class="image-container">
+      <img src="https://astelus.com/wp-content/viajes/preparar-Enchilada.jpg" alt="Background Image">
+    </div>
+    <div class="text-content">
+      <h1>Login</h1>
+    </div>
+    <form [formGroup]="loginForm" class="login-form"  (ngSubmit)="onSubmit()">
+      <input type="text" name="username" id="username" placeholder="Username">
+      <input type="password" name="password" id="password" placeholder="Password">
+      <div class="button-container">
+        <button type="submit" >Login</button>
+        <button routerLink="/bienvenida" routerLinkActive="active" type="reset" class="reset-button">Back</button>
+      </div>
     </form>
-    <button (click)="isUser()">Submit</button>
+  </div>
 </div>

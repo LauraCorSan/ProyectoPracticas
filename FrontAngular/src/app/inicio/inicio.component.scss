@@ -1,53 +1,106 @@
-#titulo{
+#titulo {
     position: relative;
     top: 90px;
-    margin-left: 150px;
     text-align: center;
+    color: rgb(212, 138, 0);
 }
 
-h1{
+h1 {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #contenido {
     background-color: white;
     position: relative;
-    top: 90px;
-    left: 23%;
-    height: 60%;
-    width: 65%;
+    height: 100%;
+    width: 98.5%;
     border-radius: 15px;
-    box-shadow: 3px 0px 10px 1px rgba(0, 0, 0, 0.305);
+    overflow: auto;
+    box-sizing: border-box; 
+    padding: 1em;
 }
 
-.receta{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 20%;
-    height: 60%;
-    width: 60%;
-    padding-bottom:1em ;
+#espacio {
+    background-color: white;
+    position: relative;
+    top: 90px;
+    left: 15%;
+    height: 65%;
+    width: 70%;
+    border-radius: 15px;
+    box-shadow: 3px 0px 10px 1px orange;
+    border: orange;
 }
-#contenido h1{
+
+.receta {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: auto;
+    width: 65%;
+    padding-bottom: 1em;
+    margin-left: 17.5%;
+    justify-content: center;
+}
+
+#contenido h1 {
     margin-top: 10px;
     text-align: center;
 }
 
-.receta img{
+.receta img {
     margin-left: 25%;
     width: 50%;
     border-radius: 10px;
 }
 
-.receta a{
+.receta a {
     display: block;
     text-align: center;
     text-decoration: none;
-    padding: 1em;    
+    padding: 0.5em;
+    margin-top: 1em;
+    margin-left: 13%;
+    width: 70%;
 }
 
-.receta a:hover{
+.receta a:hover {
     cursor: pointer;
     color: rgb(0, 0, 0);
     background-color: rgba(232, 225, 203, 0.491);
     border-radius: 15px;
+}
+
+#botones {
+    text-align: center;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 45%;
+    margin: 1em 1em 1em 0;
+}
+
+button:hover {
+    padding: 8px 18px;
+}
+
+#contenido::-webkit-scrollbar {
+    width: 10px; 
+    background-color: white;
+}
+
+#contenido::-webkit-scrollbar-thumb {
+    background-color: rgb(247, 222, 177); 
+    border-radius: 5px; 
+}
+
+hr{
+    border: solid 1px  rgb(247, 222, 177);
 }

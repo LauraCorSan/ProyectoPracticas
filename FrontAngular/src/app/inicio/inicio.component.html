@@ -1,9 +1,18 @@
+<app-cabecera></app-cabecera>
 <div id="titulo">
-    <h1>Recetas recomendadas</h1>
+    <h1>Recommended recipes</h1>
 </div>
-<div id="contenido">
-    <div class="receta">
-        <a href="">Hamburguesa con queso y lechuga</a>
-        <img src="https://d31npzejelj8v1.cloudfront.net/media/recipemanager/recipe/1687290737_ham-queso-y-tocino.jpg">
+<div id="espacio">
+    <div id="contenido">
+        <div *ngFor="let recipe of recipes" class="receta">
+            <!-- Cuando pulse el enlace hay que llamar a la api pasando el id para que devuelva la receta -->
+            <a href="" [id]="recipe.id">{{ recipe.title }}</a><br>
+            <img [src]="recipe.image" [alt]="recipe.title">
+            <div id="botones">
+                <button  class="button">Add to favorites</button>
+                <button  class="button">Add to history</button>
+            </div>
+            <hr>
+        </div>
     </div>
 </div>

@@ -1,84 +1,139 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
+import { LoginComponent } from '../login/login.component';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, BienvenidaComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss'
 })
+
 export class RegistroComponent {
-  createUser():boolean{
-    const userNameElement = document.getElementById('user') as HTMLInputElement;
-    if(!isFilled(userNameElement))return false;
-    const userName = userNameElement.value;
-
-    const nameElement = document.getElementById('name') as HTMLInputElement;
-    if(!isFilled(nameElement))return false;
-    const name = nameElement.value;
-
-    const surnameElement = document.getElementById('surname') as HTMLInputElement;
-    if(!isFilled(surnameElement))return false;
-    const surname = surnameElement.value;
+  registroForm: FormGroup;
 
 
-    const emailElement = document.getElementById('email') as HTMLInputElement;
-    const email = emailElement.value;
-    if(!isValidEmail(email))return false;
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
 
-
-    const intolerancesElement = document.getElementById('intolerances') as HTMLSelectElement;
-    if(!isValidSelection(intolerancesElement)) return false;
-    // TODO array const intolerances = intolerancesElement.value;
-
-
-    const paswordElement = document.getElementById('pass') as HTMLInputElement
-    const password = paswordElement.value;
-    if(!isValidPassword(password)) return false;
-
-
-
-    return true;
-
-    // TODO cancel CREATE user + alert('Already exist a user with this email');
+    this.registroForm = this.fb.group({
+      Name: ['', [Validators.required, this.noWhitespaceValidator]],
+      Surname: ['', [Validators.required, this.noWhitespaceValidator]],
+      Email: ['', [Validators.required, Validators.email]],
+      Username: ['', [Validators.required, this.noWhitespaceValidator]],
+      Password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$/)]],
+      BirthDate: ['', [Validators.required, this.dateNotInFutureValidator]],
+      Intolerances: [[], Validators.required]
+    });
   }
-}
 
-function isFilled(field:HTMLInputElement):boolean{
-  const value = field.value;
-
-  if(value == null || value == undefined || value.length==0 || value.trim().length==0){
-    alert('The field \"'+field.name+'\" is empty');
-    return false;
+  ngOnInit() {
+    this.http.get('http://localhost:8080/aler/alergenos').subscribe(data => {
+      if(data){
+        if (Array.isArray(data) && data.length > 0) {
+          this.insertIntolerances(data);
+        }
+      }
+    });
   }
-  return true;
-}
 
-function isValidEmail(email:string):boolean{
-  const emailPattern: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-  if(!emailPattern.test(email)){
-    alert('Use a valid email');
-    return false;
+  onSubmit() {
+    if (this.registroForm.invalid) {
+      this.showErrors();
+      return;
+    }
+    const formValues = this.registroForm.value;
+
+    const user = {
+      name: formValues.Name,
+      surname: formValues.Surname,
+      email: formValues.Email,
+      username: formValues.Username,
+      password: formValues.Password,
+      dateOfBirth: formValues.BirthDate,
+      registrationDate: this.formatDate(new Date()),
+      alergens: this.parseIntolerances(document.getElementById('intolerances') as HTMLSelectElement)
+    };
+
+
+    this.http.post('http://localhost:8080/api/create', user ).subscribe(data => {
+      if(data){
+        this.router.navigate(['/login']);
+      } else {
+
+        alert('The user could not be registered.');
+      }
+    });
+ }
+
+  private showErrors() {
+    for (const field in this.registroForm.controls) {
+      if (this.registroForm.controls.hasOwnProperty(field)) {
+        const control = this.registroForm.get(field);
+        if (control && control.invalid) {
+          const errors = control.errors;
+          if (errors) {
+            if (errors['required']) {
+              alert(`The field "${field}" is empty`);
+              break;
+            } else if (errors['email']) {
+              alert('Use a valid email address.');
+              break;
+            } else if (errors['pattern']) {
+              alert('The password must contain 8-15 characters, at least one uppercase letter, one lowercase letter, one number, and one special character ($@$!%*?&), without blank spaces.');
+              break;
+            } else if (errors['dateNotInFuture']) {
+              alert('The birth date must be before the current date.');
+              break;
+            }
+          }
+        }
+      }
+    }
   }
-  return true;
-}
 
-function isValidPassword(password:string):boolean{
-  //Password with uppercase, lowercase, numeric, and special characters. Without white spaces (length 8-15 characters)
-  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$/i;
-  if(!passwordPattern.test(password)){
-    alert('The password must 8-15 hcracters and contains at least one:\n - Uppercase letter\n - Lowercase letter\n - Number \n - Special character ($@$!%*?&)\n - No spaces');
-    return false;
+  insertIntolerances(alergenos: any[]) {
+    const selectElement = document.getElementById('intolerances') as HTMLSelectElement;
+    alergenos.forEach(alergeno => {
+      const option = document.createElement('option');
+      option.value = alergeno.name;
+      option.text = alergeno.name;
+      selectElement.add(option);
+    });
   }
-  return true;
-}
 
-function isValidSelection(intolerancesElement : HTMLSelectElement):boolean{
-  if (intolerancesElement.selectedOptions==null|| intolerancesElement.selectedOptions.length==0){
-    alert('You must select one intolerance');
-    return false;
+  private noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
   }
-  return true;
-}
 
+  private dateNotInFutureValidator(control: FormControl) {
+    const currentDate = new Date();
+    const selectedDate = new Date(control.value);
+    const isValid = selectedDate < currentDate;
+    return isValid ? null : { dateNotInFuture: true };
+  }
+
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses de 0 a 11, por eso sumamos 1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  private parseIntolerances(listIntolerances: HTMLSelectElement) {
+    const selectedOptions = Array.from(listIntolerances.selectedOptions);
+    const intolerances = selectedOptions.map(option => ({ name: option.textContent }));
+    return intolerances.length > 0 ? intolerances : [];
+  }
+
+}
 

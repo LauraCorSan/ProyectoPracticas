@@ -1,29 +1,18 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { BienvenidaComponent } from './bienvenida/bienvenida.component';
+import { InicioComponent } from './inicio/inicio.component';
+import { CabeceraComponent } from './cabecera/cabecera.component';
+import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-  });
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'FrontAngular' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('FrontAngular');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, FrontAngular');
-  });
-});
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet , BienvenidaComponent, LoginComponent, UserComponent, CabeceraComponent, InicioComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
+})
+export class AppComponent {
+  title = 'FrontAngular';
+}

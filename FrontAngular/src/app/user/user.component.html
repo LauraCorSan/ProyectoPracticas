@@ -1,0 +1,55 @@
+<!--<app-cabecera></app-cabecera>-->
+<div class="outer-container">
+  <div class="info-container">
+    <div class="image-container">
+      <img src="https://i.pinimg.com/originals/97/08/19/97081939e675bd9ded43caaa941fc4a5.jpg" alt="Profile Image">
+    </div>
+    <div class="text-content">
+      <div class="profile-header">
+        <h1>User Profile</h1>
+        <div class="button-images">
+          <button routerLink="/historial" routerLinkActive="active" class="image-button" ariaCurrentWhenActive="page">
+            <img src="https://cdn1.iconfinder.com/data/icons/ecommerce-basic-1-line-cut/468/34-order_history-1024.png" alt="Historial">
+          </button>
+          <button routerLink="/favoritos" routerLinkActive="active" class="image-button" ariaCurrentWhenActive="page">
+            <img src="https://cdn-icons-png.flaticon.com/512/2919/2919643.png" alt="Favorites">
+          </button>
+        </div>
+      </div>
+      <form class="edit-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="Username">Username:</label>
+          <input type="text" id="Username" [(ngModel)]="user.username" name="username" readonly>
+        </div>
+        <div class="form-group">
+          <label for="Name">Name:</label>
+          <input type="text" id="Name" [(ngModel)]="user.name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="Surname">Surname:</label>
+          <input type="text" id="Surname" [(ngModel)]="user.surname" name="surname">
+        </div>
+        <div class="form-group">
+          <label for="Email">Email:</label>
+          <input type="email" id="Email" [(ngModel)]="user.email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="Password">Password:</label>
+          <input type="password" id="Password" [(ngModel)]="user.password" name="password">
+        </div>
+        <div class="form-group">
+          <label for="DateOfBirth">Date of birth:</label>
+          <input type="date" id="DateOfBirth" [(ngModel)]="user.dateOfBirth" name="dateOfBirth">
+        </div>
+        <div class="form-group">
+          <label for="Alergens">Allergies/Intolerances:</label>
+          <textarea id="Alergens" [(ngModel)]="allergenString" name="alergens" readonly></textarea>
+        </div>
+        <div class="button-container">
+          <button type="submit">Accept changes</button>
+          <button type="reset" class="reset-button" (click)="onCancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

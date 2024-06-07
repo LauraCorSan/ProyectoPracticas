@@ -1,58 +1,151 @@
-.form-container{
-    margin-left: 30%;
-    width: 40%;
-    height: 50%;
-    background-color:rgb(51, 51, 51);
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: space-around;
-    border-radius: 1rem;
-    border: 0.1rem solid orange;
-    box-shadow: 0 0 1rem orange;
-    color: white;
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.form-container input{
-    color: orange;
-    margin-bottom: 1em;
-}
-.sign-in-form{
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-top: 1em;
-}
-
-button{
-    width: 100px;
-    height: 20%;
-    border-radius: 1rem;
-    border: none;
-    color: orange;
-    margin-bottom: 1em;
+.form-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 1rem rgba(255, 165, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+  border: 0.1rem solid orange;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-button:hover{
-    animation-name: changeColor;
-    animation-duration:0.5s;
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  z-index: 0;
 }
 
-.form-title {
-    color: orange;
-    font-style: bolder;
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
 }
 
-select{
-    width: 100%;
-    height: 50px;
-    margin-bottom: 1em;
+.text-content {
+  position: absolute;
+  top: 20px; /* Ajusta esta propiedad según sea necesario */
+  z-index: 2; /* Asegúrate de que esté por encima del contenedor de la imagen */
+  color: rgb(212, 138, 0);
 }
 
-@keyframes changeColor {
-    to{
-        background-color:rgb(51, 51, 51);
-        border: 1px solid orange;
-    }
+.text-content h1 {
+  color: inherit;
+  margin-bottom: 20px;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  padding-top: 80px; /* Ajusta esta propiedad para dar espacio al texto superior */
+}
+
+.sign-in-form input,
+.sign-in-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #495057;
+  background-color: #ffffff;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sign-in-form input:focus,
+.sign-in-form select:focus {
+  border-color: orange;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+  outline: none;
+}
+
+.sign-in-form select {
+  height: 50px;
+  margin-bottom: 1em;
+}
+
+.sign-in-form select[multiple] {
+  height: auto;
+  min-height: 50px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sign-in-form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px 0;
+}
+
+.sign-in-form button[type="submit"] {
+  background-color: orange;
+  color: #ffffff;
+}
+
+.sign-in-form button[type="submit"]:hover {
+  background-color: rgb(212, 138, 0);
+}
+
+.reset-button {
+  background-color: grey;
+  color: #ffffff;
+}
+
+.reset-button:hover {
+  background-color: darkgrey;
+}
+
+select {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 1em;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+  }
+
+  .image-container {
+    height: 100px;
+  }
+
+  .text-content {
+    top: 25px;
+  }
+
+  .sign-in-form {
+    padding-top: 90px;
+  }
 }

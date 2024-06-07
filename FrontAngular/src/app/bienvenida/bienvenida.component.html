@@ -1,35 +1,26 @@
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InstantRecipes - Bienvenido</title>
-</head>
-<body>
+<div class="outer-container">
   <div class="container">
       <div class="text-content">
-          <h1>Bienvenido a InstantRecipes</h1>
-
+          <h1>Welcome to InstantRecipes!</h1>
           <p>
-            InstantRecipes es tu nuevo aliado en la cocina, ofreciéndote una experiencia culinaria personalizada.
+            InstantRecipes is your new ally in the kitchen, offering you a personalized culinary experience.
           </p>
           <p>
-            Podrás acceder a una amplia variedad de recetas que se adaptan a tus alergias, gustos y preferencias dietéticas.
-            Además te permite filtrarlas recetas según tus intereses, guardar tus favoritas, marcarlas como hechas y comentar sobre ellas.
+            You'll have access to a wide variety of recipes that adapt to your allergies, tastes, and dietary preferences.
+            Additionally, it allows you to filter recipes according to your interests, save your favorites, mark them as done, and comment on them.
           </p>
           <p>
-            En tu perfil, puedes ver y actualizar tus datos, así como subir tus propias recetas, ver tus recetas hechas en tu historial y consultar tu lista de favoritas.
+            Join the InstantRecipes community and take your cooking to the next level!
           </p>
-          <p>
-            ¡Únete a la comunidad de InstantRecipes y lleva tu cocina al siguiente nivel!
-          </p>
-
           <div class="button-container">
-              <a (click)="navigateToLogin()"  id = "inicioSesion" class="button">Inicia Sesión</a>
-              <a (click)="navigateToRegister()"  id = "registro" class="button button-secondary">Regístrate</a>
-              <span class="small-text">¿No tienes cuenta?</span>
+              <a routerLink="/login" routerLinkActive="active"  class="button">Log in</a>
+
+              <span class="small-text">Don't have an account?</span>
+              <a class="link" routerLink="/registro" routerLinkActive="active">Sign up!</a>
           </div>
       </div>
       <div class="image-content">
           <img src="https://d1ralsognjng37.cloudfront.net/367f542c-7ad5-4099-bd50-5e638a9c1879.jpeg" alt="Deliciosa comida">
       </div>
   </div>
-</body>
+</div>

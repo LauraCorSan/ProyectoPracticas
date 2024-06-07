@@ -1,7 +1,7 @@
 <div id="cabecera">
     <div id="dock">
         <div title="Home" class="opciones">
-            <a href="">
+            <a routerLink="/inicio" routerLinkActive="active" ariaCurrentWhenActive="page">
                 <img src="./assets/inicio.png" alt="Home">
             </a>
         </div>
@@ -13,14 +13,14 @@
         </div>
 
         <div title="New Recipes" class="opciones">
-            <a href="">
+          <a routerLink="/crearReceta" routerLinkActive="active" ariaCurrentWhenActive="page">
                 <img src="./assets/nueva-receta.png" alt="New Recipes">
             </a>
         </div>
 
-        <div title="Profile">
-            <a href="">
-                <img src="./assets/icono.png">
+        <div title="Profile" class="opciones">
+            <a routerLink="/perfil" routerLinkActive="active" ariaCurrentWhenActive="page">
+                <img src="./assets/icono.png" alt="Profile">
             </a>
         </div>
     </div>

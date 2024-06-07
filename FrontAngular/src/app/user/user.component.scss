@@ -1,0 +1,168 @@
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  margin-top: 80px;
+}
+
+.info-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 1rem orange;
+  max-width: 800px;
+  width: 100%;
+  border: 0.1rem solid orange;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  position: relative;
+}
+
+.image-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.text-content {
+  flex: 2;
+  z-index: 1;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-content h1 {
+  color: rgb(212, 138, 0);
+  margin-bottom: 20px;
+}
+
+.button-images {
+  display: flex;
+  gap: 20px; /* Agregamos espacio entre los botones */
+}
+
+.image-button {
+  background-color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%; /* Hacemos que el fondo sea redondeado */
+}
+
+.image-button img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  margin-top: 50px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: rgb(212, 138, 0);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.form-group textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: flex-start;
+}
+
+.edit-form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px 5px;
+}
+
+.edit-form button[type="submit"] {
+  background-color: orange;
+  color: #ffffff;
+}
+
+.edit-form button[type="submit"]:hover {
+  background-color: rgb(212, 138, 0);
+}
+
+.reset-button {
+  background-color: grey;
+  color: #ffffff;
+}
+
+.reset-button:hover {
+  background-color: darkgrey;
+}
+
+@media (max-width: 768px) {
+  .outer-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .info-container {
+    flex-direction: column;
+  }
+
+  .image-content {
+    margin: 0 0 20px 0;
+  }
+
+  .text-content {
+    width: 100%;
+  }
+}
