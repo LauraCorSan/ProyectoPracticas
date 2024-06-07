@@ -7,12 +7,11 @@ export class User {
     public password: string,
     public dateOfBirth: Date,
     public registrationDate: Date,
-    public alergens: Alergens[]
+    public alergens: Alergen[]
   ) {}
 }
-export class Alergens {
+export class Alergen {
   constructor(
-    public id: number,
     public name: string,
   ) {}
 }

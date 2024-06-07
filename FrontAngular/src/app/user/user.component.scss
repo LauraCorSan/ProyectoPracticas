@@ -112,6 +112,36 @@
   height: 100px;
 }
 
+.form-group select {
+  width: 95%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #495057;
+  background-color: #ffffff;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: orange;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+  outline: none;
+}
+
+.form-group select {
+  height: 40px;
+  margin-bottom: 1em;
+}
+
+.form-group select[multiple] {
+  height: auto;
+  min-height: 50px;
+}
+
 .button-container {
   display: flex;
   flex-direction: row;

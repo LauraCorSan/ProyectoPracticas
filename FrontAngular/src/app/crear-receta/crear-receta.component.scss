@@ -96,7 +96,7 @@
 
 .form-group input,
 .form-group textarea {
-  width: 800px;
+  width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -106,7 +106,17 @@
 
 .form-group textarea {
   resize: vertical;
-  height: 200px;
+  height: 300px; /* Ajusta la altura según tus necesidades */
+}
+
+.form-group select {
+  width: 90%;
+  padding: 10px;
+  height: 60px; /* Ajusta la altura según tus necesidades */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
 }
 
 .button-container {
@@ -115,6 +125,7 @@
   width: 50%;
   justify-content: flex-start;
 }
+
 .receta-form input,
 .receta-form select {
   width: 100%;
@@ -166,18 +177,18 @@
 }
 
 .receta-form select {
-  height: 50px;
+  height: 60px; /* Ajusta la altura según tus necesidades */
   margin-bottom: 1em;
 }
 
 .receta-form select[multiple] {
   height: auto;
-  min-height: 50px;
+  min-height: 60px;
 }
 
 select {
   width: 100%;
-  height: 50px;
+  height: 60px; /* Ajusta la altura según tus necesidades */
   margin-bottom: 1em;
 }
 
