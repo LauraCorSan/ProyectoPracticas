@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonObject;
 import com.proyectogrupal.proyecto.models.services.ExternalApiService;
 import com.proyectogrupal.proyecto.models.services.RecipeService;
+import com.proyectogrupal.proyecto.envoltorio.RecipeInformation;
+import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
 import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
 import com.proyectogrupal.proyecto.models.entity.Recipe;
 @CrossOrigin(origins = {"http://localhost:4200"} , methods = {RequestMethod.POST,RequestMethod.GET})
@@ -44,5 +46,10 @@ public class RecipesRestController {
 	@GetMapping("/getRegistered")
 	public List<Recipe> getRegisteredRecipes() {
 		return recipeServ.getRegisteredRecipes();
+	}
+	
+	@PostMapping("/getInformation")
+	public RecipeInformation getInformation(@RequestBody RequestRecipe request) {
+		return extern.getRecipeInformation(request);
 	}
 }

@@ -175,13 +175,14 @@ public class UserService implements IUserService {
 			user.setRecipesFav(persistedRecipes);
 		}
 		
+		
 		return userDao.save(user);
 	}
 	
 	@Override
 	@Transactional
 	public Set<Recipe> getRecipesFav(RequestUsername user) {
-		return userDao.findByUsername(user.getUsername()).getRecipes();
+		return userDao.findByUsername(user.getUsername()).getRecipesFav();
 	}
 	
 	
