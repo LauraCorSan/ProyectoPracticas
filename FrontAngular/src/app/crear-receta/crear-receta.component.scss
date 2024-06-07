@@ -1,0 +1,201 @@
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 1rem rgba(255, 165, 0, 0.5);
+  max-width: 800px;
+  width: 100%;
+  border: 0.1rem solid orange;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.text-content {
+  position: absolute;
+  top: 50px;
+  z-index: 1;
+  color: rgb(212, 138, 0);
+}
+
+.text-content h1 {
+  color: inherit;
+  margin-bottom: 20px;
+}
+
+.button-images {
+  display: flex;
+  gap: 20px;
+}
+
+.image-button {
+  background-color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.image-button img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.receta-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  margin-top: 120px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: rgb(212, 138, 0);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 800px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.form-group textarea {
+  resize: vertical;
+  height: 200px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: flex-start;
+}
+.receta-form input,
+.receta-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #495057;
+  background-color: #ffffff;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.receta-form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px 5px;
+}
+
+.receta-form button[type="submit"] {
+  background-color: orange;
+  color: #ffffff;
+}
+
+.receta-form button[type="submit"]:hover {
+  background-color: rgb(212, 138, 0);
+}
+
+.reset-button {
+  background-color: grey;
+  color: #ffffff;
+}
+
+.reset-button:hover {
+  background-color: darkgrey;
+}
+
+.receta-form input:focus,
+.receta-form select:focus {
+  border-color: orange;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+  outline: none;
+}
+
+.receta-form select {
+  height: 50px;
+  margin-bottom: 1em;
+}
+
+.receta-form select[multiple] {
+  height: auto;
+  min-height: 50px;
+}
+
+select {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 1em;
+}
+
+@media (max-width: 768px) {
+  .outer-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .form-container {
+    flex-direction: column;
+  }
+
+  .image-content {
+    margin: 0 0 20px 0;
+  }
+
+  .text-content {
+    width: 100%;
+  }
+}

@@ -1,21 +1,28 @@
 import { Component } from '@angular/core';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { CookieService } from '../cookie.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscador',
   standalone: true,
-  imports: [CabeceraComponent],
+  imports: [CabeceraComponent, CommonModule],
   templateUrl: './buscador.component.html',
   styleUrl: './buscador.component.scss'
 })
 export class BuscadorComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  private cookieService: CookieService, private router: Router) {}
   validateFields(): boolean {
     return true;
   }
 
   ngOnInit() {
+    if(this.cookieService.get('usuario') == null || this.cookieService.get('usuario') == ""){
+      this.router.navigate(['/bienvenida']);
+    }
+    //Llamar api tipos cocina
     this.http.get('http://localhost:8080/cuisine/getAll').subscribe(data => {
       if(data){
         if (Array.isArray(data) && data.length > 0) {

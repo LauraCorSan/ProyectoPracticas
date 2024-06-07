@@ -1,19 +1,20 @@
+<!--<app-cabecera></app-cabecera>-->
 <div id="contenedorBusqueda">
     <div id="filtros">
         <h1>Filters</h1>
         <label for="name">Recipe name</label><br>
         <input type="text" id="name" name="name"><br>
-        
+
         <label for="type">Type</label><br>
         <select id="type" name="type">
         </select><br>
-        
+
         <label for="maxCalories">Maximum calories</label><br>
         <input type="number" name="maxCalories" id="maxCalories"><br>
-        
+
         <label for="minCalories">Minimum calories</label><br>
         <input type="number" id="minCalories" name="minCalories"><br>
-        
+
         <label for="ingredients">Ingredients</label><br>
         <textarea name="ingredients" id="ingredients"></textarea><br>
         <button (click)="validateFields()" class="button">Search</button>
