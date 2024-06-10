@@ -1,4 +1,4 @@
-package com.proyectogrupal.proyecto.models.entity;
+package com.proyectogrupal.proyecto.envoltorio;
 
 public class RecetaInfo {
     private int id;

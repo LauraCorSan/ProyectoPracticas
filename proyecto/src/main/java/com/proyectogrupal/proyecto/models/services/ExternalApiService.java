@@ -20,9 +20,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.proyectogrupal.proyecto.envoltorio.RecetaInfo;
+import com.proyectogrupal.proyecto.envoltorio.RequestRecetaInfo;
 import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
 import com.proyectogrupal.proyecto.models.dao.IUserDao;
 import com.proyectogrupal.proyecto.models.entity.Alergen;
@@ -34,7 +38,7 @@ public class ExternalApiService {
 	IUserDao userDao;
 	@Autowired
 	private RestTemplate restTemplate;
-	private String apiKey = "e92ce92eb2d846418968a9f01f8871ec";
+	private String apiKey = "40b06c440fc24afb9067a886a34b2130";
 	private Gson gson = new Gson();
 
 	public List<Map<String, Object>> callExternalApi() {
@@ -137,4 +141,70 @@ public class ExternalApiService {
 			return errorResponse;
 		}
 	}
-}
+	
+	
+	
+	public List<Map<String, Object>> buscarRecetasPorFiltros(RequestRecetaInfo params) {
+	    Map<String, String> paramsMap = parseParams(params);
+	    UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/recipes/complexSearch")
+	            .queryParam("apiKey", this.apiKey);
+
+	    for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
+	        uriBuilder.queryParam(entry.getKey(), entry.getValue());
+	    }
+
+	    String url = uriBuilder.toUriString();
+	    System.out.println("Final URL: " + url);
+
+	    String response = restTemplate.getForObject(url, String.class);
+	    System.out.println("API Response: " + response);
+
+	    JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+	    JsonArray resultsArray = jsonObject.getAsJsonArray("results");
+
+	    List<Map<String, Object>> recetas = new ArrayList<>();
+	    for (JsonElement element : resultsArray) {
+	        JsonObject recipeObject = element.getAsJsonObject();
+	        Map<String, Object> receta = new HashMap<>();
+	        receta.put("id", recipeObject.get("id").getAsInt());
+	        receta.put("title", recipeObject.get("title").getAsString());
+	        receta.put("image", recipeObject.get("image").getAsString());
+
+	        recetas.add(receta);
+	    }
+
+	    return recetas;
+	}
+
+    private Map<String, String> parseParams(RequestRecetaInfo params) {
+        Map<String, String> paramsMap = new HashMap<>();
+
+        if (params.getName() != null && !params.getName().isEmpty()) {
+            paramsMap.put("titleMatch", params.getName());
+        }
+
+        if (params.getType() != null && !params.getType().isEmpty()) {
+            paramsMap.put("type", params.getType());
+        }
+
+        if (params.getMaxCalories() > 0) {
+            paramsMap.put("maxCalories", String.valueOf(params.getMaxCalories()));
+        }
+
+        if (params.getMinCalories() > 0) {
+            paramsMap.put("minCalories", String.valueOf(params.getMinCalories()));
+        }
+
+        if (params.getIngredients() != null && !params.getIngredients().isEmpty()) {
+            paramsMap.put("includeIngredients", params.getIngredients());
+        }
+
+        // Imprimir los parámetros para verificar su valor
+        System.out.println("Params Map: " + paramsMap);
+
+        return paramsMap;
+    }
+
+	}
+	
+
