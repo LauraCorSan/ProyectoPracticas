@@ -5,6 +5,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
+import com.proyectogrupal.proyecto.models.dao.IAlergenDao;
+import com.proyectogrupal.proyecto.models.dao.IUserDao;
+import com.proyectogrupal.proyecto.models.entity.Alergen;
+import com.proyectogrupal.proyecto.models.entity.User;
 import com.proyectogrupal.proyecto.models.services.ExternalApiService;
 
 import org.junit.jupiter.api.Test;
@@ -20,8 +25,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,6 +47,7 @@ public class ExternalApiTest {
 
     @InjectMocks
     private ExternalApiService externalApi;
+    
 
     @Test
     void testCallExternalApi_JsonSyntaxException() {

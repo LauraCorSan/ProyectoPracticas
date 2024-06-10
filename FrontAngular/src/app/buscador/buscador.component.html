@@ -1,4 +1,4 @@
-<!--<app-cabecera></app-cabecera>-->
+<app-cabecera></app-cabecera>
 <div id="contenedorBusqueda">
     <div id="filtros">
         <h1>Filters</h1>
@@ -17,9 +17,36 @@
 
         <label for="ingredients">Ingredients</label><br>
         <textarea name="ingredients" id="ingredients"></textarea><br>
-        <button (click)="validateFields()" class="button">Search</button>
+        <button (click)="onSumbit()" class="button">Search</button>
         <!-- <a routerLink="" routerLinkActive="active" ariaCurrentWhenActive="page" id="buscar" class="button">Buscar</a> -->
     </div>
     <div id="resultados">
+        <div class="receta">
+            <a href="">Comida</a><br>
+            <img src="https://img.freepik.com/foto-gratis/cerca-deliciosa-comida-espanola_23-2149210893.jpg">
+            <div id="botones">
+                <button  class="button" >Add to favorites</button>
+                <button  class="button">Add to history</button>
+            </div>
+            <hr>
+        </div>
+        <div class="receta">
+            <a href="">Comida</a><br>
+            <img src="https://media.ambito.com/p/ddeb5fdba575c76821846791e52d95d0/adjuntos/239/imagenes/039/884/0039884582/hamburguesajpg.jpg">
+            <div id="botones">
+                <button  class="button" >Add to favorites</button>
+                <button  class="button">Add to history</button>
+            </div>
+            <hr>
+        </div>
+        <div class="receta">
+            <a href="">Comida</a><br>
+            <img src="https://st2.depositphotos.com/1328914/8685/i/450/depositphotos_86857546-stock-photo-mexican-steak-and-chicken-fajitas.jpg">
+            <div id="botones">
+                <button  class="button" >Add to favorites</button>
+                <button  class="button">Add to history</button>
+            </div>
+            <hr>
+        </div>
     </div>
 </div>

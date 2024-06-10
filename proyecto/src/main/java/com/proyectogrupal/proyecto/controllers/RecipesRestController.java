@@ -21,6 +21,8 @@ import com.proyectogrupal.proyecto.models.services.ExternalApiService;
 import com.proyectogrupal.proyecto.models.services.RecipeService;
 import com.proyectogrupal.proyecto.envoltorio.RecetaInfo;
 import com.proyectogrupal.proyecto.envoltorio.RequestRecetaInfo;
+import com.proyectogrupal.proyecto.envoltorio.RecipeInformation;
+import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
 import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
 import com.proyectogrupal.proyecto.models.entity.Recipe;
 @CrossOrigin(origins = {"http://localhost:4200"} , methods = {RequestMethod.POST,RequestMethod.GET})
@@ -52,6 +54,9 @@ public class RecipesRestController {
 	@PostMapping("/getWithFilters")
 	public List<Map<String, Object>> buscarRecetas(@RequestBody RequestRecetaInfo params) {
 	    List<Map<String, Object>> recetas = extern.buscarRecetasPorFiltros(params);
-	    return recetas;
+	    return recetas;}
+	@PostMapping("/getInformation")
+	public RecipeInformation getInformation(@RequestBody RequestRecipe request) {
+		return extern.getRecipeInformation(request);
 	}
 }

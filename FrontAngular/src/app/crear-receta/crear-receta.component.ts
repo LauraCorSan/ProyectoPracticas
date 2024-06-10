@@ -22,7 +22,7 @@ recetaForm: FormGroup;
 
     this.recetaForm = this.fb.group({
       Name: ['', [Validators.required, this.noWhitespaceValidator]],
-      Desciption: ['', [Validators.required, this.noWhitespaceValidator]],
+      Description: ['', [Validators.required, this.noWhitespaceValidator]],
       Ingredients: [[], Validators.required]
     });
   }

@@ -1,4 +1,4 @@
-<!--<app-cabecera></app-cabecera>-->
+<app-cabecera></app-cabecera>
 <div class="outer-container">
   <div class="info-container">
     <div class="image-container">
@@ -14,11 +14,14 @@
           <button routerLink="/favoritos" routerLinkActive="active" class="image-button" ariaCurrentWhenActive="page">
             <img src="https://cdn-icons-png.flaticon.com/512/2919/2919643.png" alt="Favorites">
           </button>
+          <button (click)="deleteCookie()" class="image-button" ariaCurrentWhenActive="page">
+            <img src="https://cdn-icons-png.flaticon.com/512/450/450400.png" alt="Favorites">
+          </button>
         </div>
       </div>
       <form class="edit-form" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="Username">Username:</label>
+          <label for="Username">Username (Non-modifiable):</label>
           <input type="text" id="Username" [(ngModel)]="user.username" name="username" readonly>
         </div>
         <div class="form-group">
@@ -43,7 +46,11 @@
         </div>
         <div class="form-group">
           <label for="Alergens">Allergies/Intolerances:</label>
-          <textarea id="Alergens" [(ngModel)]="allergenString" name="alergens" readonly></textarea>
+          <textarea placeholder="None" id="Alergens" [(ngModel)]="allergenString" name="alergens" readonly></textarea>
+        </div>
+        <div class="form-group">
+          <label for="ModifyAlergens">Modify list of Allergies/Intolerances:</label>
+          <select id="modifyAlergens" name="modifyAlergens" multiple><option value="none">None</option></select>
         </div>
         <div class="button-container">
           <button type="submit">Accept changes</button>

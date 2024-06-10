@@ -27,6 +27,7 @@ import com.proyectogrupal.proyecto.controllers.UserRestController;
 import com.proyectogrupal.proyecto.envoltorio.RequestRecipe;
 import com.proyectogrupal.proyecto.envoltorio.RequestUsername;
 import com.proyectogrupal.proyecto.envoltorio.RequestUsernameRequestRecipe;
+import com.proyectogrupal.proyecto.envoltorio.UserRequest;
 import com.proyectogrupal.proyecto.models.dao.IAlergenDao;
 import com.proyectogrupal.proyecto.models.dao.IUserDao;
 import com.proyectogrupal.proyecto.models.entity.Alergen;
@@ -120,6 +121,18 @@ class ProyectoApplicationTests {
 		}
 		assertEquals(crp.index().size(),27);
 		assertEquals(arp.index().size(), 12);
+		
+		RequestUsername userRequest = new RequestUsername();
+		userRequest.setUsername("arturoyz");
+		
+		List<Map<String,Object>> callFilter = rrp.callExternByAler(userRequest);
+		assertEquals(callFilter.size(), 10);
+		assertEquals(callFilter.get(0).size(),3);
+		for(int i = 0;i < 10;i++) {
+			assertTrue(callFilter.get(i).containsKey("id"));
+			assertTrue(callFilter.get(i).containsKey("title"));
+			assertTrue(callFilter.get(i).containsKey("image"));
+		}
 	}
 	
 	@Test
