@@ -18,7 +18,7 @@ export class FavoritosComponent {
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {}
 
   ngOnInit() {
-    
+
     if(this.cookieService.get('usuario') == null || this.cookieService.get('usuario') == ""){
       this.router.navigate(['/bienvenida']);
     }
@@ -26,7 +26,7 @@ export class FavoritosComponent {
     const user={
       username:this.cookieService.get('usuario')
     }
-  
+
     this.http.post('http://localhost:8080/api/getRecipesFav', user).subscribe(data => {
         if (data) {
           if (Array.isArray(data) && data.length > 0) {
@@ -34,5 +34,13 @@ export class FavoritosComponent {
           }
         }
       });
+  }
+
+  verDetalles(recipeId: number) {
+    if (recipeId !== undefined) {
+      this.router.navigate(['/detalles', recipeId]);
+    } else {
+      console.error('Recipe ID is undefined');
+    }
   }
 }

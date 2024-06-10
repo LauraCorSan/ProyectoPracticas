@@ -43,7 +43,7 @@ export class LoginComponent {
         this.cookieService.set('usuario', username)
         this.router.navigate(['/inicio']);
       } else {
-        alert('El usuario o la contraseña no son validos');
+        alert('The username or password is invalid');
       }
     });
   }

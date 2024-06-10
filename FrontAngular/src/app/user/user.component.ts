@@ -1,12 +1,10 @@
-import { Alergen } from './../user.model';
+import { Alergen, User } from './../user.model';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../user.model';
 import { InicioComponent } from '../inicio/inicio.component';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
 import { BienvenidaComponent } from '../bienvenida/bienvenida.component';

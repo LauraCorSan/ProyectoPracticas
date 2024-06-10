@@ -4,11 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { CookieService } from '../cookie.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DetallesComponent } from '../detalles/detalles.component';
+
 
 @Component({
   selector: 'app-historial',
   standalone: true,
-  imports: [CabeceraComponent, CommonModule],
+  imports: [CabeceraComponent, CommonModule, DetallesComponent],
   templateUrl: './historial.component.html',
   styleUrl: './historial.component.scss'
 })
@@ -17,7 +19,7 @@ export class HistorialComponent {
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {}
 
   ngOnInit() {
-    
+
     if(this.cookieService.get('usuario') == null || this.cookieService.get('usuario') == ""){
       this.router.navigate(['/bienvenida']);
     }
@@ -25,7 +27,7 @@ export class HistorialComponent {
     const user={
       username:this.cookieService.get('usuario')
     }
-  
+
     this.http.post('http://localhost:8080/api/getRecipesDone', user).subscribe(data => {
         if (data) {
           if (Array.isArray(data) && data.length > 0) {
@@ -33,6 +35,14 @@ export class HistorialComponent {
           }
         }
       });
+  }
+
+  verDetalles(recipeId: number) {
+    if (recipeId !== undefined) {
+      this.router.navigate(['/detalles', recipeId]);
+    } else {
+      console.error('Recipe ID is undefined');
+    }
   }
 
 }

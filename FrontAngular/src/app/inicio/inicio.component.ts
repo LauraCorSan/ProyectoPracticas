@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from '../cookie.service';
 import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
+import { DetallesComponent } from '../detalles/detalles.component';
 import { Router } from '@angular/router';
-
 
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CabeceraComponent, CommonModule, BienvenidaComponent],
+  imports: [CabeceraComponent, CommonModule, BienvenidaComponent, DetallesComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'
 })
@@ -70,7 +70,7 @@ export class InicioComponent {
       };
       this.http.post('http://localhost:8080/api/addRecipe', request).subscribe(data => {
         if (data) {
-          alert('Receta añadida correctamente');
+          alert('Recipe added to History correctly');
         }
       });
     }
@@ -94,7 +94,7 @@ export class InicioComponent {
       };
       this.http.post('http://localhost:8080/api/setFavRecipe', request).subscribe(data => {
         if (data) {
-          alert('Receta añadida correctamente');
+          alert('Recipe Successfully Added to Favorites');
         }
       });
     }
@@ -109,4 +109,9 @@ export class InicioComponent {
     this.filter = this.cookieService.get('filter');
     window.location.reload();
   }
+
+  verDetalles(recipeId: number) {
+    this.router.navigate(['/detalles', recipeId]);
+  }
+
 }
