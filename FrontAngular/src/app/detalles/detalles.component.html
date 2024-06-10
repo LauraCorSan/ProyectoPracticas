@@ -1,0 +1,18 @@
+<div class="outer-container" *ngIf="recipe">
+  <div class="container">
+      <div class="text-content">
+          <h1>{{ recipe.title }}</h1>
+          <p>{{ recipe.summary }}</p>
+          <label>Ingredients:</label>
+          <p>{{ ingredientsString }}</p>
+
+          <div class="button-container">
+            <button class="button" (click)="thisRecipeFav()">Add to favorites</button>
+            <button class="button" (click)="thisRecipeMade()">Add to history</button>
+          </div>
+      </div>
+      <div class="image-content">
+          <img [src]="recipe.image" alt="Recipe Image">
+      </div>
+  </div>
+</div>

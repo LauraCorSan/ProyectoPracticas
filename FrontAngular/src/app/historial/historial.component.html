@@ -2,8 +2,8 @@
 <div id="espacio">
     <div id="contenido">
         <div *ngFor="let recipe of recipes" class="receta">
-            <a href="" [id]="recipe.id">{{ recipe.title }}</a><br>
+            <a (click)="verDetalles(recipe.recipeId)" [id]="recipe.id">{{ recipe.title }}</a><br>
             <img [src]="recipe.url" [alt]="recipe.title">
         </div>
     </div>
-</div> 
+</div>
